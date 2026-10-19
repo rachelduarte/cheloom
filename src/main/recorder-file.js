@@ -12,10 +12,10 @@ export function isRecording() {
   return current !== null;
 }
 
-export function begin() {
+export function begin(ext = 'webm') {
   if (current) discard();
   fs.mkdirSync(recordingsDir(), { recursive: true });
-  const finalPath = path.join(recordingsDir(), recordingFileName());
+  const finalPath = path.join(recordingsDir(), recordingFileName(new Date(), ext));
   const partPath = `${finalPath}.part`;
   current = { stream: fs.createWriteStream(partPath), partPath, finalPath };
   return finalPath;

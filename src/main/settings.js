@@ -8,6 +8,7 @@ const DEFAULTS = {
   cameraId: null,
   micId: null,
   mirror: true,
+  quality: 'youtube',
   cameraWidth: 240,
   cameraPosition: null,
 };

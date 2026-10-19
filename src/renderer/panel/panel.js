@@ -1,4 +1,5 @@
 import { formatBytes } from '../../shared/format.js';
+import { PRESETS, pickFormat, presetFor } from '../../shared/quality.js';
 
 const api = window.cheloom;
 const $ = (sel) => document.querySelector(sel);
@@ -13,6 +14,8 @@ const ui = {
   mic: $('#mic-select'),
   shapes: document.querySelectorAll('.shape'),
   mirror: $('#mirror'),
+  quality: $('#quality-select'),
+  qualityInfo: $('#quality-info'),
   message: $('#setup-message'),
   recordBtn: $('#record-btn'),
   recordings: $('#recordings'),
@@ -86,6 +89,7 @@ function renderSources() {
 
   ui.windowWarning.hidden = state.kind === 'screen' || !ui.camera.value;
   ui.recordBtn.disabled = !state.sourceId;
+  renderQualityInfo();
 }
 
 for (const seg of ui.segs) {
@@ -163,18 +167,36 @@ api.onShapeRequest((shape) => {
 });
 ui.camera.addEventListener('change', applyCamera);
 ui.mirror.addEventListener('change', applyCamera);
-ui.mic.addEventListener('change', () => api.setSettings({ micId: ui.mic.value || null }));
+ui.mic.addEventListener('change', () => {
+  api.setSettings({ micId: ui.mic.value || null });
+  renderQualityInfo();
+});
+
+// ── Calidad ─────────────────────────────────────────
+
+const isTypeSupported = (t) => MediaRecorder.isTypeSupported(t);
+
+function selectedSource() {
+  return state.sources.find((s) => s.id === state.sourceId);
+}
+
+function renderQualityInfo() {
+  const preset = presetFor(ui.quality.value);
+  const format = pickFormat(preset, isTypeSupported, Boolean(ui.mic.value));
+  const size = selectedSource()?.size;
+  const res = size ? `${size.height}p` : 'tamaño de la ventana';
+  ui.qualityInfo.textContent = `${format.label} · ${res} · ${preset.fps} fps · ${preset.videoBitsPerSecond / 1e6} Mbps`;
+}
+
+ui.quality.replaceChildren(...Object.entries(PRESETS).map(([id, p]) => el('option', { value: id, textContent: p.label })));
+ui.quality.addEventListener('change', () => {
+  api.setSettings({ quality: ui.quality.value });
+  renderQualityInfo();
+});
 
 // ── Grabación ───────────────────────────────────────
 
 let rec = null; // { recorder, streams, queue, discard, elapsed, segmentStart }
-
-function pickMimeType(hasAudio) {
-  const candidates = hasAudio
-    ? ['video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm']
-    : ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
-  return candidates.find((t) => MediaRecorder.isTypeSupported(t)) ?? '';
-}
 
 function stopStreams(streams) {
   for (const s of streams) s?.getTracks().forEach((t) => t.stop());
@@ -198,26 +220,37 @@ api.onGo(async () => {
   const streams = [];
   let begun = false;
   try {
-    const display = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false });
+    const preset = presetFor(ui.quality.value);
+    const size = selectedSource()?.size;
+    const video = { frameRate: { ideal: preset.fps, max: preset.fps } };
+    if (size) Object.assign(video, { width: { ideal: size.width }, height: { ideal: size.height } });
+    const display = await navigator.mediaDevices.getDisplayMedia({ video, audio: false });
     streams.push(display);
     const tracks = display.getVideoTracks();
 
     if (ui.mic.value) {
       const mic = await navigator.mediaDevices.getUserMedia({
-        audio: { deviceId: { exact: ui.mic.value }, echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+        audio: {
+          deviceId: { exact: ui.mic.value },
+          sampleRate: 48000,
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
       });
       streams.push(mic);
       tracks.push(...mic.getAudioTracks());
     }
 
     const hasAudio = tracks.some((t) => t.kind === 'audio');
+    const format = pickFormat(preset, isTypeSupported, hasAudio);
     const recorder = new MediaRecorder(new MediaStream(tracks), {
-      mimeType: pickMimeType(hasAudio),
-      videoBitsPerSecond: 6_000_000,
-      audioBitsPerSecond: 128_000,
+      mimeType: format.mimeType,
+      videoBitsPerSecond: preset.videoBitsPerSecond,
+      audioBitsPerSecond: preset.audioBitsPerSecond,
     });
 
-    await api.recBegin();
+    await api.recBegin({ ext: format.ext });
     begun = true;
 
     const r = { recorder, streams, queue: Promise.resolve(), discard: false, elapsed: 0, segmentStart: 0 };
@@ -288,7 +321,7 @@ async function refreshLibrary(selectPath) {
     ...items.map((item) => {
       const date = new Date(item.mtime).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' });
       const btn = el('button', { className: 'recording' }, [
-        el('strong', { textContent: item.name.replace(/\.webm$/i, '') }),
+        el('strong', { textContent: item.name.replace(/\.(webm|mp4)$/i, '') }),
         el('small', { textContent: `${date} · ${formatBytes(item.size)}` }),
       ]);
       btn.classList.toggle('is-selected', item.path === state.selectedFile?.path);
@@ -305,12 +338,12 @@ async function refreshLibrary(selectPath) {
 function selectRecording(item, date, autoplay = false) {
   state.selectedFile = item;
   for (const b of ui.recordings.querySelectorAll('.recording')) {
-    b.classList.toggle('is-selected', b.querySelector('strong').textContent === item.name.replace(/\.webm$/i, ''));
+    b.classList.toggle('is-selected', b.querySelector('strong').textContent === item.name.replace(/\.(webm|mp4)$/i, ''));
   }
   ui.player.src = item.url;
   ui.placeholder.hidden = true;
   ui.meta.hidden = false;
-  ui.title.textContent = item.name.replace(/\.webm$/i, '');
+  ui.title.textContent = item.name.replace(/\.(webm|mp4)$/i, '');
   ui.sub.textContent = `${date} · ${formatBytes(item.size)}`;
   if (autoplay) ui.player.play().catch(() => {});
 }
@@ -344,6 +377,7 @@ async function init() {
   state.settings = await api.getSettings();
   setShapeButtons(state.settings.shape);
   ui.mirror.checked = state.settings.mirror;
+  ui.quality.value = PRESETS[state.settings.quality] ? state.settings.quality : 'youtube';
   await unlockDeviceLabels();
   await refreshDevices();
   await refreshSources();

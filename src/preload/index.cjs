@@ -28,7 +28,7 @@ contextBridge.exposeInMainWorld('cheloom', {
   countdownCancel: () => ipcRenderer.send('countdown:cancel'),
   onGo: on('rec:go'),
   onCancelled: on('rec:cancelled'),
-  recBegin: () => ipcRenderer.invoke('rec:begin'),
+  recBegin: (opts) => ipcRenderer.invoke('rec:begin', opts),
   recChunk: (buf) => ipcRenderer.send('rec:chunk', buf),
   recFinish: () => ipcRenderer.invoke('rec:finish'),
   recDiscard: () => ipcRenderer.invoke('rec:discard'),

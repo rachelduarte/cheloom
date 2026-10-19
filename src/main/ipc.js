@@ -1,5 +1,5 @@
 // Canales IPC entre renderers y main.
-import { desktopCapturer, dialog, ipcMain } from 'electron';
+import { desktopCapturer, dialog, ipcMain, screen } from 'electron';
 import * as library from './library.js';
 import * as recorder from './recorder-file.js';
 import { getSettings, setSettings } from './settings.js';
@@ -42,9 +42,17 @@ export function registerIpc() {
       types: ['screen', 'window'],
       thumbnailSize: { width: 320, height: 180 },
     });
+    const displays = screen.getAllDisplays();
     return sources
       .filter((s) => !s.name.startsWith('CHELOOM'))
-      .map((s) => ({ id: s.id, name: s.name, thumbnail: s.thumbnail.toDataURL(), isScreen: s.id.startsWith('screen:') }));
+      .map((s) => {
+        // Tamaño físico de la pantalla, para capturar sin reescalar.
+        const d = displays.find((x) => String(x.id) === s.display_id);
+        const size = d
+          ? { width: Math.round(d.size.width * d.scaleFactor), height: Math.round(d.size.height * d.scaleFactor) }
+          : null;
+        return { id: s.id, name: s.name, thumbnail: s.thumbnail.toDataURL(), isScreen: s.id.startsWith('screen:'), size };
+      });
   });
 
   // Preferencias
@@ -82,7 +90,7 @@ export function registerIpc() {
     backToPanel();
     win.panel?.webContents.send('rec:cancelled');
   });
-  ipcMain.handle('rec:begin', () => recorder.begin());
+  ipcMain.handle('rec:begin', (_e, { ext }) => recorder.begin(ext === 'mp4' ? 'mp4' : 'webm'));
   ipcMain.on('rec:chunk', (_e, buf) => recorder.append(buf));
   ipcMain.handle('rec:finish', async () => {
     const file = await recorder.finish();

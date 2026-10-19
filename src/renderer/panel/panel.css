@@ -213,6 +213,12 @@ select {
   padding: 10px 12px;
 }
 
+.quality-info {
+  font-size: 12px;
+  color: var(--horizon);
+  font-variant-numeric: tabular-nums;
+}
+
 .shapes {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

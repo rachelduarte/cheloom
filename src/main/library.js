@@ -12,7 +12,7 @@ function insideLibrary(file) {
 
 export async function list() {
   fs.mkdirSync(recordingsDir(), { recursive: true });
-  const names = (await fs.promises.readdir(recordingsDir())).filter((n) => n.toLowerCase().endsWith('.webm'));
+  const names = (await fs.promises.readdir(recordingsDir())).filter((n) => /\.(mp4|webm)$/i.test(n));
   const items = await Promise.all(
     names.map(async (name) => {
       const file = path.join(recordingsDir(), name);
