@@ -10,6 +10,13 @@ export function formatDuration(ms) {
   return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
 }
 
+// Como formatDuration, pero con décimas (truncadas) para el editor.
+export function formatTimecode(seconds) {
+  const s = Math.max(0, seconds);
+  const tenths = Math.floor((s * 10) % 10);
+  return `${formatDuration(Math.floor(s) * 1000)}.${tenths}`;
+}
+
 export function recordingFileName(date = new Date(), ext = 'webm') {
   const d = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   const t = `${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`;

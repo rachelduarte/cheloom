@@ -443,6 +443,15 @@ select {
 .ghost-btn:hover {
   border-color: var(--accent);
 }
+.ghost-btn.primary-btn {
+  background: var(--cloud);
+  border-color: var(--cloud);
+  color: var(--blackout);
+  font-weight: 600;
+}
+.ghost-btn.primary-btn:hover {
+  background: #fff;
+}
 .ghost-btn.danger:hover {
   border-color: var(--magenta);
   color: #ff5aaa;

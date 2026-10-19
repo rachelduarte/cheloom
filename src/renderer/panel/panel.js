@@ -402,6 +402,15 @@ function clearPlayer() {
   ui.meta.hidden = true;
 }
 
+$('#edit-btn').addEventListener('click', () => {
+  if (!state.selectedFile) return;
+  ui.player.pause();
+  api.openEditor(state.selectedFile.path);
+});
+// El editor exportó un video nuevo: aparece en la Biblioteca seleccionado.
+api.onLibraryChanged((file) => {
+  if (!ui.views.library.hidden) refreshLibrary(file);
+});
 $('#open-folder').addEventListener('click', () => api.openFolder());
 $('#show-in-folder').addEventListener('click', () => state.selectedFile && api.showInFolder(state.selectedFile.path));
 $('#trash-btn').addEventListener('click', async () => {

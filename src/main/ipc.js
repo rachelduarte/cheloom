@@ -1,5 +1,6 @@
 // Canales IPC entre renderers y main.
 import { desktopCapturer, dialog, ipcMain, screen } from 'electron';
+import { closeEditorSession, registerEditorIpc } from './editor.js';
 import * as library from './library.js';
 import * as recorder from './recorder-file.js';
 import { getSettings, setSettings } from './settings.js';
@@ -9,6 +10,8 @@ import {
   closeToolbar,
   moveCamera,
   openCountdown,
+  openEditor,
+  setEditorDirty,
   openToolbar,
   resizeCamera,
   win,
@@ -131,4 +134,13 @@ export function registerIpc() {
   });
   ipcMain.on('library:show', (_e, file) => library.showInFolder(file));
   ipcMain.on('library:open-folder', () => library.openFolder());
+
+  // Editor
+  ipcMain.on('editor:open', (_e, file) => {
+    if (library.insideLibrary(file)) openEditor(file, { onClosed: closeEditorSession });
+  });
+  ipcMain.on('editor:dirty', (_e, dirty) => setEditorDirty(dirty));
+  registerEditorIpc({
+    onLibraryChanged: (file) => win.panel?.webContents.send('library:changed', file),
+  });
 }

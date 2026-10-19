@@ -1,5 +1,5 @@
-// Ventanas de CHELOOM: panel, cámara flotante, barra de grabación y cuenta regresiva.
-import { BrowserWindow, screen } from 'electron';
+// Ventanas de CHELOOM: panel, cámara flotante, barra de grabación, cuenta regresiva y editor.
+import { BrowserWindow, dialog, screen } from 'electron';
 import path from 'node:path';
 import { clampSize, sizeFor } from '../shared/shapes.js';
 import { getSettings, setSettings } from './settings.js';
@@ -8,7 +8,7 @@ const root = path.join(import.meta.dirname, '..');
 const preload = path.join(root, 'preload', 'index.cjs');
 const page = (name) => path.join(root, 'renderer', name, 'index.html');
 
-export const win = { panel: null, camera: null, toolbar: null, countdown: null };
+export const win = { panel: null, camera: null, toolbar: null, countdown: null, editor: null };
 
 const floating = {
   frame: false,
@@ -51,7 +51,7 @@ export function createPanel() {
   win.panel.once('ready-to-show', () => win.panel.show());
   win.panel.on('closed', () => {
     win.panel = null;
-    for (const key of ['camera', 'toolbar', 'countdown']) win[key]?.destroy();
+    for (const key of ['camera', 'toolbar', 'countdown', 'editor']) win[key]?.destroy();
   });
   return win.panel;
 }
@@ -165,4 +165,54 @@ export function openCountdown() {
 
 export function closeCountdown() {
   win.countdown?.destroy();
+}
+
+// ── Editor de video ────────────────────────────────────────────────
+
+const editorState = { dirty: false };
+
+export function setEditorDirty(dirty) {
+  editorState.dirty = Boolean(dirty);
+}
+
+export function openEditor(file, { onClosed }) {
+  if (win.editor) {
+    win.editor.webContents.send('editor:load', file);
+    win.editor.show();
+    win.editor.focus();
+    return;
+  }
+  editorState.dirty = false;
+  win.editor = new BrowserWindow({
+    width: 1280,
+    height: 820,
+    minWidth: 960,
+    minHeight: 640,
+    title: 'CHELOOM · Editor',
+    icon: path.join(root, 'assets', 'icon.png'),
+    backgroundColor: '#0A0F0F',
+    titleBarStyle: 'hidden',
+    titleBarOverlay: { color: '#0C152A', symbolColor: '#C9DEE8', height: 44 },
+    show: false,
+    webPreferences: webPreferences(),
+  });
+  win.editor.loadFile(page('editor'), { query: { file } });
+  win.editor.once('ready-to-show', () => win.editor.show());
+  win.editor.on('close', (e) => {
+    if (!editorState.dirty) return;
+    const choice = dialog.showMessageBoxSync(win.editor, {
+      type: 'warning',
+      buttons: ['Salir sin exportar', 'Seguir editando'],
+      defaultId: 1,
+      cancelId: 1,
+      message: '¿Salir del editor?',
+      detail: 'Tienes cambios sin exportar. Si sales, se pierden.',
+    });
+    if (choice === 1) e.preventDefault();
+  });
+  win.editor.on('closed', () => {
+    win.editor = null;
+    editorState.dirty = false;
+    onClosed();
+  });
 }

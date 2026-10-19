@@ -43,4 +43,15 @@ contextBridge.exposeInMainWorld('cheloom', {
   trash: (file) => ipcRenderer.invoke('library:trash', file),
   showInFolder: (file) => ipcRenderer.send('library:show', file),
   openFolder: () => ipcRenderer.send('library:open-folder'),
+  onLibraryChanged: on('library:changed'),
+
+  // Editor
+  openEditor: (file) => ipcRenderer.send('editor:open', file),
+  onEditorLoad: on('editor:load'),
+  editorPrepare: (file) => ipcRenderer.invoke('editor:prepare', file),
+  onEditorStrip: on('editor:strip'),
+  editorExport: (clips) => ipcRenderer.invoke('editor:export', clips),
+  onEditorProgress: on('editor:progress'),
+  editorCancel: () => ipcRenderer.send('editor:cancel'),
+  editorSetDirty: (dirty) => ipcRenderer.send('editor:dirty', dirty),
 });

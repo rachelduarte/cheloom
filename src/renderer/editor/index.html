@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' file:; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; img-src 'self' file: data:; media-src 'self' file: blob:"
+    />
+    <title>CHELOOM · Editor</title>
+    <link rel="stylesheet" href="../theme.css" />
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <header class="titlebar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">CHELOOM</span>
+        <span class="brand-sep" aria-hidden="true">/</span>
+        <span class="brand-section">Editor</span>
+      </div>
+      <span id="file-name" class="file-name"></span>
+    </header>
+
+    <main class="stage">
+      <video id="video" preload="auto" playsinline></video>
+      <div id="loading" class="loading" hidden>
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="loading-text">Preparando video…</span>
+      </div>
+    </main>
+
+    <section class="transport" aria-label="Controles">
+      <div class="group">
+        <button id="undo" class="tool" title="Deshacer (Ctrl+Z)" aria-label="Deshacer">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5" /><path d="M4 9h11a5 5 0 0 1 0 10h-3" /></svg>
+        </button>
+        <button id="redo" class="tool" title="Rehacer (Ctrl+Y)" aria-label="Rehacer">
+          <svg class="icon" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5" /><path d="M20 9H9a5 5 0 0 0 0 10h3" /></svg>
+        </button>
+      </div>
+
+      <div class="group center">
+        <button id="play" class="play" title="Reproducir (Espacio)" aria-label="Reproducir">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z" /></svg>
+        </button>
+        <span class="time"><span id="time-now">0:00.0</span> <span class="muted">/ <span id="time-total">0:00.0</span></span></span>
+      </div>
+
+      <div class="group">
+        <button id="split" class="tool labeled" title="Dividir en el cabezal (S)">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12" /></svg>
+          Dividir
+        </button>
+        <button id="delete" class="tool labeled danger" title="Eliminar fragmento (Supr)">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" /></svg>
+          Eliminar
+        </button>
+        <label class="zoom" title="Zoom de la línea de tiempo">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4M8 11h6M11 8v6" /></svg>
+          <input id="zoom" type="range" min="1" max="20" step="0.5" value="1" aria-label="Zoom" />
+        </label>
+        <button id="export" class="export">Exportar video</button>
+      </div>
+    </section>
+
+    <section class="timeline" aria-label="Línea de tiempo">
+      <div id="scroll" class="scroll">
+        <div id="lane" class="lane">
+          <div id="ruler" class="ruler"></div>
+          <div id="clips" class="clips"></div>
+          <div id="drop" class="drop" hidden></div>
+          <div id="playhead" class="playhead"><span class="knob"></span></div>
+        </div>
+      </div>
+      <p class="hints">
+        <kbd>Espacio</kbd> reproducir · <kbd>S</kbd> dividir · <kbd>Supr</kbd> eliminar · arrastra los bordes para
+        recortar · arrastra un fragmento para moverlo · <kbd>Ctrl</kbd>+<kbd>Z</kbd> deshacer
+      </p>
+    </section>
+
+    <div id="modal" class="modal" hidden>
+      <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <h2 id="modal-title">Exportando…</h2>
+        <div data-state="progress">
+          <div class="bar"><span id="bar-fill"></span></div>
+          <p class="muted"><span id="bar-text">0 %</span> · El video original no se modifica.</p>
+          <div class="actions"><button id="cancel-export" class="ghost">Cancelar</button></div>
+        </div>
+        <div data-state="done" hidden>
+          <p id="done-text" class="muted"></p>
+          <div class="actions">
+            <button id="show-file" class="ghost">Mostrar en carpeta</button>
+            <button id="close-modal" class="primary">Seguir editando</button>
+          </div>
+        </div>
+        <div data-state="error" hidden>
+          <pre id="error-text" class="error-text"></pre>
+          <div class="actions"><button id="close-error" class="primary">Entendido</button></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="editor.js"></script>
+  </body>
+</html>

@@ -5,7 +5,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { recordingsDir } from './recorder-file.js';
 
-function insideLibrary(file) {
+export function insideLibrary(file) {
   const rel = path.relative(recordingsDir(), path.resolve(file));
   return rel && !rel.startsWith('..') && !path.isAbsolute(rel);
 }
