@@ -21,12 +21,12 @@ test('formatDuration nunca es negativo', () => {
 
 test('recordingFileName usa fecha y hora locales, sin caracteres prohibidos en Windows', () => {
   const name = recordingFileName(new Date(2026, 9, 19, 14, 5, 9));
-  assert.equal(name, 'CHELOOM 2026-10-19 14-05-09.webm');
+  assert.equal(name, 'cheloom 2026-10-19 14-05-09.webm');
   assert.doesNotMatch(name, /[<>:"/\|?*]/);
 });
 
 test('recordingFileName usa la extensión del contenedor', () => {
-  assert.equal(recordingFileName(new Date(2026, 9, 19, 14, 5, 9), 'mp4'), 'CHELOOM 2026-10-19 14-05-09.mp4');
+  assert.equal(recordingFileName(new Date(2026, 9, 19, 14, 5, 9), 'mp4'), 'cheloom 2026-10-19 14-05-09.mp4');
 });
 
 test('formatBytes legible', () => {
