@@ -59,8 +59,13 @@ video {
   place-items: center;
   text-align: center;
   padding: 12px;
-  font-size: 13px;
-  color: var(--lead);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--cloud);
+  cursor: pointer;
+}
+.cam-error:hover {
+  color: #fff;
 }
 
 /* Controles: solo al pasar el cursor */

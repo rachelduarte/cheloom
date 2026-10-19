@@ -1,3 +1,4 @@
+import { cameraErrorMessage, shouldFallBackToDefault, shouldRetry } from '../../shared/camera-errors.js';
 import { frameStyle } from '../../shared/frames.js';
 
 const api = window.cheloom;
@@ -7,24 +8,86 @@ const error = document.getElementById('cam-error');
 const shapeButtons = document.querySelectorAll('.controls button');
 const handle = document.getElementById('resize');
 
-let currentDevice = null;
+const QUALITY = { width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } };
+const RETRY_MS = 3000;
+
+let wanted = null; // dispositivo pedido por el panel
+let opening = null; // dispositivo que se está abriendo ahora
 let stream = null;
+let attempt = 0; // cada apertura nueva invalida las anteriores
+let retryTimer = 0;
+
+function showError(err) {
+  console.error(`[CHELOOM cámara] ${err.name}: ${err.message}`);
+  error.textContent = cameraErrorMessage(err.name);
+  error.hidden = false;
+}
 
 async function openDevice(deviceId) {
-  if (deviceId === currentDevice && stream) return;
+  wanted = deviceId;
+  // Ya abierta o abriéndose con este dispositivo: nada que hacer (evita aperturas en paralelo).
+  if (deviceId === opening || (stream?.active && stream.__deviceId === deviceId)) return;
+
+  clearTimeout(retryTimer);
+  const mine = ++attempt;
+  opening = deviceId;
   stream?.getTracks().forEach((t) => t.stop());
-  currentDevice = deviceId;
+  stream = null;
+
+  let next = null;
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 }, frameRate: { ideal: 30 } },
-    });
-    video.srcObject = stream;
-    error.hidden = true;
-  } catch {
-    stream = null;
-    error.hidden = false;
+    next = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: deviceId }, ...QUALITY } });
+  } catch (err) {
+    if (shouldFallBackToDefault(err.name)) {
+      try {
+        next = await navigator.mediaDevices.getUserMedia({ video: QUALITY });
+      } catch (err2) {
+        if (mine === attempt) fail(err2, deviceId);
+        return;
+      }
+    } else {
+      if (mine === attempt) fail(err, deviceId);
+      return;
+    }
   }
+
+  // Si mientras tanto se pidió otro dispositivo, esta apertura ya no sirve.
+  if (mine !== attempt) {
+    next.getTracks().forEach((t) => t.stop());
+    return;
+  }
+  opening = null;
+  next.__deviceId = deviceId;
+  stream = next;
+  video.srcObject = stream;
+  error.hidden = true;
+  // Si Windows corta la cámara (se desconecta, otra app la toma), se reintenta.
+  stream.getVideoTracks()[0]?.addEventListener('ended', () => scheduleRetry());
 }
+
+function fail(err, deviceId) {
+  opening = null;
+  showError(err);
+  if (shouldRetry(err.name) && deviceId === wanted) scheduleRetry();
+}
+
+function scheduleRetry() {
+  clearTimeout(retryTimer);
+  retryTimer = setTimeout(() => {
+    stream = null;
+    if (wanted) openDevice(wanted);
+  }, RETRY_MS);
+}
+
+// Clic sobre el aviso: reintentar ya.
+error.addEventListener('pointerdown', (e) => e.stopPropagation());
+error.addEventListener('click', () => {
+  stream = null;
+  if (wanted) openDevice(wanted);
+});
+navigator.mediaDevices.addEventListener('devicechange', () => {
+  if (wanted && !stream?.active) openDevice(wanted);
+});
 
 api.onCameraConfig(({ deviceId, shape, mirror, frame, frameColor }) => {
   cam.className = `cam shape-${shape}`;
