@@ -26,6 +26,7 @@
 - [La cámara flotante](#la-cámara-flotante)
 - [Calidad de video](#calidad-de-video)
 - [Tus grabaciones](#tus-grabaciones)
+- [Editar tus videos](#editar-tus-videos)
 - [Atajos](#atajos)
 - [Solución de problemas](#solución-de-problemas)
 - [Privacidad](#privacidad)
@@ -48,7 +49,8 @@ cámara en un mismo video, con tu voz. Es la idea de Loom, pero **local**, **gra
 | 🎙️ **Micrófono** | Con cancelación de eco y reducción de ruido |
 | ⏯️ **Controles** | Cuenta regresiva, pausar / reanudar, detener y descartar. La barra de controles **no aparece en el video** |
 | 📺 **Calidad YouTube** | MP4 H.264 a 60 fps y a la resolución nativa de tu pantalla |
-| 📁 **Biblioteca** | Reproduce, ubica o elimina tus grabaciones desde la app |
+| ✂️ **Editor** | Divide, borra, recorta y reordena fragmentos; al exportar todo queda pegado en un solo video |
+| 📁 **Biblioteca** | Reproduce, edita, ubica o elimina tus grabaciones desde la app |
 | 🔒 **100 % local** | Sin cuenta, sin servidores, sin subir nada a ningún lado |
 
 ---
@@ -163,12 +165,63 @@ ese momento se conserva.
 
 ---
 
+## Editar tus videos
+
+CHELOOM trae un editor sencillo, al estilo del de Canva: **divides** el video, **borras** lo que no quieres y
+lo demás queda **pegado** en un solo video.
+
+**Ábrelo así:** pestaña **Biblioteca** → elige una grabación → **Editar**.
+
+### Quitar una parte del video
+
+1. Mueve el **cabezal** (la línea magenta) al inicio de la parte que sobra y pulsa **Dividir** (o `S`).
+2. Mueve el cabezal al final de esa parte y vuelve a pulsar **Dividir**.
+3. Haz clic en el fragmento del medio y pulsa **Eliminar** (o `Supr`). Los fragmentos que quedan se pegan solos.
+4. Pulsa **▶** para revisar cómo quedó y luego **Exportar video**.
+
+### Todo lo que puedes hacer
+
+| Quieres… | Haz esto |
+|---|---|
+| **Moverte por el video** | Haz clic en la regla de tiempo o arrastra el cabezal |
+| **Dividir** | Pon el cabezal donde quieras cortar y pulsa **Dividir** (`S`) |
+| **Borrar un fragmento** | Haz clic en él y pulsa **Eliminar** (`Supr`) |
+| **Recortar el inicio o el final** de un fragmento | Arrastra su borde turquesa. Mientras arrastras ves el cuadro exacto del corte |
+| **Recuperar algo que recortaste** | Arrastra el borde hacia afuera otra vez |
+| **Cambiar el orden** | Arrastra el fragmento a otra posición |
+| **Ver con más detalle** | Usa el zoom (🔍) |
+| **Deshacer / rehacer** | `Ctrl` + `Z` / `Ctrl` + `Y` |
+
+### Al exportar
+
+- Se crea un video **nuevo**, `<nombre original> (editado).mp4`, en la misma carpeta. **El original no se toca.**
+- Sale en MP4 H.264 + AAC a 30 o 60 fps constantes y a la misma resolución: listo para YouTube o para abrirlo
+  en cualquier editor.
+- Ves el progreso y puedes **cancelar**; si cancelas, no queda ningún archivo a medias.
+- Los cortes son exactos al cuadro. Como referencia, en una PC de escritorio un video de 1440p se exporta más
+  rápido que su duración real.
+
+> Si cierras el editor con cambios sin exportar, CHELOOM te pregunta antes de descartarlos.
+
+---
+
 ## Atajos
 
 | Atajo | Acción |
 |---|---|
 | **`Ctrl` + `Alt` + `C`** | Abrir CHELOOM, o traerla al frente si ya está abierta |
 | **`Esc`** (durante la cuenta regresiva) | Cancelar la grabación antes de empezar |
+
+**En el editor:**
+
+| Atajo | Acción |
+|---|---|
+| `Espacio` | Reproducir / pausar |
+| `S` | Dividir en el cabezal |
+| `Supr` | Eliminar el fragmento seleccionado |
+| `←` / `→` | Moverse un cuadro (con `Shift`, un segundo) |
+| `Inicio` / `Fin` | Ir al principio / al final |
+| `Ctrl` + `Z` / `Ctrl` + `Y` | Deshacer / rehacer |
 
 > El atajo `Ctrl` + `Alt` + `C` vive en el acceso directo del menú Inicio. Para cambiarlo:
 > clic derecho en el acceso → **Propiedades** → **Tecla de método abreviado**.
@@ -245,6 +298,7 @@ Todo queda en tu carpeta `Videos\CHELOOM` y tus ajustes en `%APPDATA%\CHELOOM`.
 
 - [Node.js](https://nodejs.org/) 22 o superior
 - Windows 10/11 (el instalador y la exclusión de la barra de controles del video son específicos de Windows)
+- `npm install` descarga FFmpeg automáticamente (paquete `ffmpeg-static`, ~83 MB)
 
 ### Correr desde el código
 
@@ -260,7 +314,7 @@ npm start
 | Comando | Qué hace |
 |---|---|
 | `npm start` | Abre CHELOOM en modo desarrollo |
-| `npm test` | Pruebas de la lógica pura (formas, colores del marco, calidad, formato, errores de cámara) |
+| `npm test` | Pruebas de la lógica pura (línea de tiempo, historial, FFmpeg, formas, colores, calidad, formato, errores de cámara) |
 | `npm run icon` | Regenera el ícono (`build/icon.png` y `src/assets/icon.png`) |
 | `npm run dist` | Genera el instalador en `dist/` |
 
@@ -285,7 +339,7 @@ src/
 │   └── settings.js      preferencias
 ├── preload/index.cjs  API mínima expuesta a las páginas
 ├── renderer/          interfaz (panel, camera, toolbar, countdown) + theme.css
-└── shared/            lógica pura y testeada (shapes, frames, quality, format, camera-errors)
+└── shared/            lógica pura y testeada (timeline, history, ffmpeg, shapes, frames, quality, format, camera-errors)
 build/                 ícono e include NSIS (atajo Ctrl+Alt+C)
 test/                  pruebas con node:test
 openspec/              especificaciones de cada cambio (SDD)
@@ -313,7 +367,8 @@ openspec/              especificaciones de cada cambio (SDD)
 3. Usa mensajes de commit con el formato `[TAG] cheloom: descripción`, donde el tag es `[ADD]`, `[IMP]` o `[FIX]`.
 4. Abre un Pull Request contando qué cambia y cómo lo probaste.
 
-Ideas pendientes: audio del sistema, atajos globales para grabar y detener, recorte de video,
+Ideas pendientes: audio del sistema, atajos globales para grabar y detener, texto y pistas superpuestas en el editor,
+guardar un proyecto del editor para seguir después,
 ícono en la bandeja del sistema, soporte para macOS.
 
 ---
@@ -323,3 +378,11 @@ Ideas pendientes: audio del sistema, atajos globales para grabar y detener, reco
 [MIT](LICENSE) © 2026 Rachel Duarte
 
 CHELOOM es un proyecto independiente, sin relación con Loom ni con Atlassian.
+
+### Software de terceros
+
+El editor usa **[FFmpeg](https://ffmpeg.org/)** 6.1.1 (compilación de [gyan.dev](https://www.gyan.dev/ffmpeg/builds/),
+distribuida mediante [`ffmpeg-static`](https://github.com/eugeneware/ffmpeg-static)) para preparar y exportar los videos.
+FFmpeg se incluye como **programa aparte** bajo la licencia **GPL-3.0-or-later**, no forma parte del código MIT de
+CHELOOM. Su licencia viaja junto al ejecutable (`resources\app.asar.unpacked\node_modules\ffmpeg-static\ffmpeg.exe.LICENSE`)
+y su código fuente está disponible en [ffmpeg.org](https://ffmpeg.org/download.html).
