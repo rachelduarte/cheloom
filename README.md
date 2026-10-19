@@ -40,7 +40,7 @@
 
 ## Instalación
 
-1. Ejecuta **`dist\CHELOOM Setup 0.1.0.exe`**.
+1. Ejecuta **`dist\CHELOOM Setup 0.2.0.exe`**.
 2. Se instala sola, sin pedir permisos de administrador, en `%LOCALAPPDATA%\Programs\cheloom`.
 3. Quedan creados dos accesos directos: uno en el **Escritorio** y otro en el **menú Inicio**.
 
