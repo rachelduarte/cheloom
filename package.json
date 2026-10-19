@@ -7,11 +7,41 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "test": "node --test \"test/*.test.js\""
+    "test": "node --test \"test/*.test.js\"",
+    "icon": "electron scripts/make-icon.cjs",
+    "dist": "electron-builder --win nsis"
   },
   "license": "UNLICENSED",
   "type": "module",
   "devDependencies": {
-    "electron": "^44.9.0"
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3"
+  },
+  "author": "Rachel",
+  "build": {
+    "appId": "pe.cheloom.app",
+    "productName": "CHELOOM",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "CHELOOM",
+      "runAfterFinish": true,
+      "include": "build/installer.nsh",
+      "deleteAppDataOnUninstall": false
+    }
   }
 }

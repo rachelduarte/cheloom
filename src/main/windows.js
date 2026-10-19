@@ -39,6 +39,7 @@ export function createPanel() {
     minWidth: 880,
     minHeight: 600,
     title: 'CHELOOM',
+    icon: path.join(root, 'assets', 'icon.png'),
     backgroundColor: '#0A0F0F',
     titleBarStyle: 'hidden',
     titleBarOverlay: { color: '#0C152A', symbolColor: '#C9DEE8', height: 44 },
