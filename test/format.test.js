@@ -1,6 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { formatDuration, recordingFileName, formatBytes } from '../src/shared/format.js';
+import { formatDuration, recordingFileName, formatBytes, formatTimecode } from '../src/shared/format.js';
+
+test('formatTimecode muestra décimas para editar con precisión', () => {
+  assert.equal(formatTimecode(0), '0:00.0');
+  assert.equal(formatTimecode(65.46), '1:05.4');
+  assert.equal(formatTimecode(3725.99), '1:02:05.9');
+  assert.equal(formatTimecode(-2), '0:00.0');
+});
 
 test('formatDuration en m:ss y h:mm:ss', () => {
   assert.equal(formatDuration(0), '0:00');
