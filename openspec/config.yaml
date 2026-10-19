@@ -1,0 +1,32 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: Electron (main + preload + renderers), JavaScript vanilla sin bundler, Node 22.
+  Architecture: proceso main (ventanas, IPC, disco) / preload con contextBridge / renderers HTML+CSS+JS.
+  Testing: node:test para la lógica pura (formas, nombres de archivo, tiempo); prueba manual de la app.
+  Style: ES modules en renderers, CommonJS en main/preload; tokens CSS de la paleta de marca.
+  Persistencia: grabaciones .webm en %USERPROFILE%\Videos\CHELOOM. Sin nube.
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Identify affected modules/packages
+  specs:
+    - Use Cockburn's fully-dressed use case format (Actor-Goal List, numbered Main Success Scenario, lettered Extensions)
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+  tasks:
+    - Group tasks by phase (infrastructure, implementation, testing)
+    - Use hierarchical numbering (1.1, 1.2, etc.)
+    - Keep tasks small enough to complete in one session
+  apply:
+    - Follow existing code patterns and conventions
+    - Load relevant coding skills for the project stack
+  verify:
+    - Run tests if test infrastructure exists
+    - Compare implementation against every spec scenario
+  archive:
+    - Warn before merging destructive deltas (large removals)

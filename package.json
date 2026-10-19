@@ -1,0 +1,13 @@
+{
+  "name": "cheloom",
+  "productName": "CHELOOM",
+  "version": "0.1.0",
+  "description": "Grabadora de pantalla y cámara tipo Loom, local y con marca propia.",
+  "main": "src/main/index.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/"
+  },
+  "license": "UNLICENSED"
+}

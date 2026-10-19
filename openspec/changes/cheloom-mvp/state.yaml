@@ -1,0 +1,9 @@
+change: cheloom-mvp
+phases:
+  propose: done
+  spec: done
+  design: done
+  tasks: done
+  apply: in_progress
+  verify: pending
+  archive: pending
