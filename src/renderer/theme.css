@@ -29,6 +29,12 @@
   box-sizing: border-box;
 }
 
+/* Sin esto, cualquier regla con display (grid, flex…) le gana al atributo hidden
+   y el elemento se ve igual. Así se mostraba siempre "Cámara no disponible". */
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   margin: 0;
