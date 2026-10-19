@@ -1,4 +1,5 @@
 import { formatBytes } from '../../shared/format.js';
+import { DEFAULT_FRAME, FRAMES, frameStyle, isHexColor } from '../../shared/frames.js';
 import { PRESETS, pickFormat, presetFor } from '../../shared/quality.js';
 
 const api = window.cheloom;
@@ -14,6 +15,9 @@ const ui = {
   mic: $('#mic-select'),
   shapes: document.querySelectorAll('.shape'),
   mirror: $('#mirror'),
+  frames: $('#frames'),
+  frameName: $('#frame-name'),
+  frameColor: $('#frame-color'),
   quality: $('#quality-select'),
   qualityInfo: $('#quality-info'),
   message: $('#setup-message'),
@@ -33,6 +37,8 @@ const state = {
   kind: 'screen',
   sourceId: null,
   selectedFile: null,
+  frame: DEFAULT_FRAME,
+  frameColor: '#ED0180',
 };
 
 // ── Utilidades ──────────────────────────────────────
@@ -151,9 +157,49 @@ function setShapeButtons(shape) {
 }
 
 function applyCamera() {
-  api.setCamera({ deviceId: ui.camera.value || null, shape: currentShape(), mirror: ui.mirror.checked });
+  api.setCamera({
+    deviceId: ui.camera.value || null,
+    shape: currentShape(),
+    mirror: ui.mirror.checked,
+    frame: state.frame,
+    frameColor: state.frameColor,
+  });
   renderSources();
 }
+
+// ── Color del marco ─────────────────────────────────
+
+function renderFrames() {
+  ui.frames.replaceChildren(
+    ...Object.entries(FRAMES).map(([id, f]) => {
+      const swatch = el('button', { className: `swatch ${id}`, title: f.label });
+      swatch.setAttribute('role', 'radio');
+      swatch.setAttribute('aria-label', f.label);
+      swatch.setAttribute('aria-checked', id === state.frame);
+      swatch.classList.toggle('is-active', id === state.frame);
+      if (id === 'custom') swatch.style.background = state.frameColor;
+      else if (id !== 'none') swatch.style.background = frameStyle(id).background;
+      swatch.addEventListener('click', () => {
+        if (id === 'custom') {
+          ui.frameColor.value = state.frameColor.toLowerCase();
+          ui.frameColor.click(); // abre el selector de color de Windows
+        }
+        setFrame(id);
+      });
+      return swatch;
+    }),
+  );
+  ui.frameName.textContent = state.frame === 'custom' ? state.frameColor.toUpperCase() : FRAMES[state.frame].label;
+}
+
+function setFrame(id, color = state.frameColor) {
+  state.frame = FRAMES[id] ? id : DEFAULT_FRAME;
+  state.frameColor = isHexColor(color) ? color : state.frameColor;
+  renderFrames();
+  applyCamera();
+}
+
+ui.frameColor.addEventListener('input', () => setFrame('custom', ui.frameColor.value));
 
 for (const b of ui.shapes) {
   b.addEventListener('click', () => {
@@ -377,6 +423,9 @@ async function init() {
   state.settings = await api.getSettings();
   setShapeButtons(state.settings.shape);
   ui.mirror.checked = state.settings.mirror;
+  state.frame = FRAMES[state.settings.frame] ? state.settings.frame : DEFAULT_FRAME;
+  if (isHexColor(state.settings.frameColor)) state.frameColor = state.settings.frameColor;
+  renderFrames();
   ui.quality.value = PRESETS[state.settings.quality] ? state.settings.quality : 'youtube';
   await unlockDeviceLabels();
   await refreshDevices();

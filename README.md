@@ -31,6 +31,7 @@
 |---|---|
 | **Grabar** | Pantalla completa o una ventana, con el audio del micrófono |
 | **Cámara flotante** | Siempre visible, en tres formas: **burbuja**, **cuadrado** y **rectángulo 16:9**. Se arrastra con el mouse y se redimensiona desde el círculo magenta de la esquina. Recuerda su forma, tamaño y posición |
+| **Color del marco** | Colores de la paleta, dos degradados, **Sin marco** o un color **Personalizado** |
 | **Controles** | Cuenta regresiva de 3 s · pausar / reanudar · detener · descartar. La barra no aparece en el video |
 | **Calidad** | Presets **YouTube**, **Máxima** y **Liviana**. Por defecto MP4 H.264 a 60 fps y resolución nativa |
 | **Biblioteca** | Lista, reproductor, *Mostrar en carpeta*, *Abrir carpeta* y *Eliminar* (manda el archivo a la Papelera) |
@@ -76,6 +77,21 @@ Si CHELOOM ya está abierta, cualquiera de estas formas trae el panel al frente 
 4. Pulsa **Empezar a grabar**. Corre una cuenta regresiva de 3 s; **Esc** la cancela.
 5. Usa la barra flotante para **pausar**, **detener** o **descartar**.
 6. Al detener, el video se abre solo en la pestaña **Biblioteca**.
+
+### Color del marco
+
+En **Grabar → Color del marco**, pulsa una muestra. El cambio se ve al instante en la cámara flotante y
+queda guardado para la próxima vez.
+
+| Opción | Color |
+|---|---|
+| **Degradado** *(por defecto)* | Horizon → Magenta |
+| **Atardecer** | Cloud → Magenta → Blackout |
+| **Horizon** · **Magenta** · **Cloud** · **Lead** · **Blackout** | Colores sólidos de la paleta |
+| **Sin marco** | La cámara queda sin borde |
+| **Personalizado** (`+`) | Abre el selector de color de Windows; elige cualquier color |
+
+El marco forma parte del video, porque se graba tal como se ve en pantalla.
 
 **Cambiar la forma de la cámara mientras grabas:** pasa el cursor sobre la cámara y elige entre burbuja,
 cuadrado o rectángulo. El cambio se ve en el video en ese mismo momento.
@@ -162,7 +178,7 @@ npm start
 | Comando | Qué hace |
 |---|---|
 | `npm start` | Abre CHELOOM en modo desarrollo |
-| `npm test` | Pruebas de la lógica pura: formas, formato y presets de calidad |
+| `npm test` | Pruebas de la lógica pura: formas, colores del marco, formato y presets de calidad |
 | `npm run icon` | Regenera `build/icon.png` y `src/assets/icon.png` con la paleta |
 | `npm run dist` | Genera el instalador en `dist\` |
 
@@ -177,6 +193,7 @@ npm start
 | Preferencias de la usuaria | `src/main/settings.js` |
 | Presets de calidad y elección de códec | `src/shared/quality.js` |
 | Formas de la cámara | `src/shared/shapes.js` |
+| Colores del marco | `src/shared/frames.js` |
 | Panel: fuentes, dispositivos, `MediaRecorder`, biblioteca | `src/renderer/panel/` |
 | Cámara flotante | `src/renderer/camera/` |
 | Paleta de marca | `src/renderer/theme.css` |
@@ -194,6 +211,7 @@ Los cambios se planifican con SDD en [`openspec/changes/`](openspec/changes):
 
 - [`cheloom-mvp`](openspec/changes/cheloom-mvp): grabación, cámara flotante y biblioteca.
 - [`cheloom-calidad-instalador`](openspec/changes/cheloom-calidad-instalador): calidad para YouTube e instalador.
+- [`cheloom-color-marco`](openspec/changes/cheloom-color-marco): color del marco de la cámara.
 
 ---
 

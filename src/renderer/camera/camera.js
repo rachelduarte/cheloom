@@ -1,3 +1,5 @@
+import { frameStyle } from '../../shared/frames.js';
+
 const api = window.cheloom;
 const cam = document.getElementById('cam');
 const video = document.getElementById('video');
@@ -24,9 +26,12 @@ async function openDevice(deviceId) {
   }
 }
 
-api.onCameraConfig(({ deviceId, shape, mirror }) => {
+api.onCameraConfig(({ deviceId, shape, mirror, frame, frameColor }) => {
   cam.className = `cam shape-${shape}`;
   cam.classList.toggle('mirror', mirror);
+  const style = frameStyle(frame, frameColor);
+  cam.style.setProperty('--frame', style.background);
+  cam.style.setProperty('--frame-width', `${style.width}px`);
   for (const b of shapeButtons) b.classList.toggle('is-active', b.dataset.shape === shape);
   openDevice(deviceId);
 });

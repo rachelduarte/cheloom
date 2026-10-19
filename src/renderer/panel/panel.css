@@ -257,6 +257,59 @@ select {
   border-radius: 5px;
 }
 
+.frames {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.swatch {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  transition: transform 0.12s;
+}
+.swatch:hover {
+  transform: scale(1.08);
+}
+.swatch.is-active {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--cloud);
+}
+/* Sin marco: círculo vacío tachado */
+.swatch.none {
+  background:
+    linear-gradient(135deg, transparent 46%, var(--magenta) 46% 54%, transparent 54%),
+    var(--surface-2);
+}
+/* Personalizado: muestra el color elegido con un "+" encima */
+.swatch.custom::after {
+  content: '+';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+.frame-name {
+  margin-left: 6px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+}
+.frame-color-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .toggle {
   display: flex;
   align-items: center;

@@ -6,11 +6,14 @@ body {
 
 .cam {
   --r: 50%;
+  --frame: var(--ring);
+  --frame-width: 4px;
   position: fixed;
   inset: 0;
-  padding: 3px;
+  padding: var(--frame-width);
   border-radius: var(--r);
-  background: var(--ring);
+  background: var(--frame);
+  transition: padding 0.15s;
   cursor: grab;
 }
 .cam:active {
@@ -35,7 +38,7 @@ body {
   background: var(--dusk);
 }
 .cam.shape-rect .lens {
-  border-radius: 13px;
+  border-radius: calc(16px - var(--frame-width));
 }
 
 video {

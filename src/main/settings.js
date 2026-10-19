@@ -8,6 +8,8 @@ const DEFAULTS = {
   cameraId: null,
   micId: null,
   mirror: true,
+  frame: 'gradient',
+  frameColor: '#ED0180',
   quality: 'youtube',
   cameraWidth: 240,
   cameraPosition: null,

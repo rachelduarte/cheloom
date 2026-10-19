@@ -61,7 +61,13 @@ export function registerIpc() {
 
   // Cámara flotante
   ipcMain.handle('camera:config', (_e, config) => {
-    setSettings({ cameraId: config.deviceId, shape: config.shape, mirror: config.mirror });
+    setSettings({
+      cameraId: config.deviceId,
+      shape: config.shape,
+      mirror: config.mirror,
+      frame: config.frame,
+      frameColor: config.frameColor,
+    });
     applyCamera(config);
     win.panel?.webContents.send('camera:shape', config.shape);
   });

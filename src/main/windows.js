@@ -69,7 +69,8 @@ function saveCameraBounds() {
   setSettings({ cameraWidth: b.width, cameraPosition: { x: b.x, y: b.y } });
 }
 
-export function applyCamera({ deviceId, shape, mirror }) {
+export function applyCamera(config) {
+  const { deviceId, shape } = config;
   if (!deviceId) {
     win.camera?.destroy();
     return;
@@ -86,7 +87,7 @@ export function applyCamera({ deviceId, shape, mirror }) {
     win.camera.once('ready-to-show', () => win.camera.showInactive());
     win.camera.on('moved', saveCameraBounds);
     win.camera.on('closed', () => (win.camera = null));
-    win.camera.webContents.once('did-finish-load', () => win.camera?.webContents.send('camera:config', { deviceId, shape, mirror }));
+    win.camera.webContents.once('did-finish-load', () => win.camera?.webContents.send('camera:config', config));
     return;
   }
 
@@ -95,7 +96,7 @@ export function applyCamera({ deviceId, shape, mirror }) {
   const next = sizeFor(shape, old.width * old.height);
   win.camera.setBounds({ x: old.x, y: old.y + old.height - next.height, ...next });
   saveCameraBounds();
-  win.camera.webContents.send('camera:config', { deviceId, shape, mirror });
+  win.camera.webContents.send('camera:config', config);
 }
 
 // Arrastre manual: en Windows las zonas -webkit-app-region no reciben hover y los controles no aparecerían.
