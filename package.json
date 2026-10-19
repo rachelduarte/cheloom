@@ -3,21 +3,29 @@
   "productName": "CHELOOM",
   "version": "0.2.0",
   "description": "Grabadora de pantalla y cámara tipo Loom, local y con marca propia.",
+  "author": "Rachel Duarte",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachelduarte/cheloom.git"
+  },
+  "homepage": "https://github.com/rachelduarte/cheloom#readme",
+  "bugs": {
+    "url": "https://github.com/rachelduarte/cheloom/issues"
+  },
   "main": "src/main/index.js",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "electron .",
     "test": "node --test \"test/*.test.js\"",
     "icon": "electron scripts/make-icon.cjs",
     "dist": "electron-builder --win nsis"
   },
-  "license": "UNLICENSED",
-  "type": "module",
   "devDependencies": {
     "electron": "^44.9.0",
     "electron-builder": "^26.15.3"
   },
-  "author": "Rachel",
   "build": {
     "appId": "pe.cheloom.app",
     "productName": "CHELOOM",

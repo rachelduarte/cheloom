@@ -1,228 +1,325 @@
 <p align="center">
-  <img src="build/icon.png" width="120" alt="Ícono de CHELOOM" />
+  <img src="build/icon.png" width="128" alt="Ícono de CHELOOM" />
 </p>
 
 <h1 align="center">CHELOOM</h1>
 
 <p align="center">
-  Grabadora de pantalla y cámara para el escritorio, al estilo Loom, con marca propia.<br />
-  Todo es local: no sube nada a la nube.
+  <strong>Graba tu pantalla con tu cámara flotando encima, al estilo Loom, sin cuentas y sin nube.</strong><br />
+  Todo se guarda en tu computadora, listo para subir a YouTube.
+</p>
+
+<p align="center">
+  <a href="https://github.com/rachelduarte/cheloom/releases/latest"><img alt="Descargar" src="https://img.shields.io/github/v/release/rachelduarte/cheloom?label=descargar&color=ED0180&style=flat-square" /></a>
+  <img alt="Windows 10/11" src="https://img.shields.io/badge/Windows-10%20%7C%2011-20BEC6?style=flat-square" />
+  <img alt="Electron" src="https://img.shields.io/badge/Electron-44-0C152A?style=flat-square" />
+  <a href="LICENSE"><img alt="Licencia MIT" src="https://img.shields.io/badge/licencia-MIT-9EACB2?style=flat-square" /></a>
 </p>
 
 ---
 
-## Índice
+## Contenido
 
-1. [Qué hace](#qué-hace)
-2. [Instalación](#instalación)
-3. [Cómo abrirla](#cómo-abrirla)
-4. [Cómo grabar](#cómo-grabar)
-5. [Calidad de video y YouTube](#calidad-de-video-y-youtube)
-6. [Dónde quedan los videos](#dónde-quedan-los-videos)
-7. [Limitaciones conocidas](#limitaciones-conocidas)
-8. [Desarrollo](#desarrollo)
-9. [Paleta de marca](#paleta-de-marca)
+- [¿Qué es?](#qué-es)
+- [Instalación](#instalación)
+- [Primeros pasos](#primeros-pasos)
+- [La cámara flotante](#la-cámara-flotante)
+- [Calidad de video](#calidad-de-video)
+- [Tus grabaciones](#tus-grabaciones)
+- [Atajos](#atajos)
+- [Solución de problemas](#solución-de-problemas)
+- [Privacidad](#privacidad)
+- [Para desarrolladores](#para-desarrolladores)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
 
 ---
 
-## Qué hace
+## ¿Qué es?
 
-| Función | Detalle |
+CHELOOM es una app de escritorio para grabar videos explicativos, tutoriales y demos: tu pantalla y tu
+cámara en un mismo video, con tu voz. Es la idea de Loom, pero **local**, **gratuita** y **de código abierto**.
+
+| | |
 |---|---|
-| **Grabar** | Pantalla completa o una ventana, con el audio del micrófono |
-| **Cámara flotante** | Siempre visible, en tres formas: **burbuja**, **cuadrado** y **rectángulo 16:9**. Se arrastra con el mouse y se redimensiona desde el círculo magenta de la esquina. Recuerda su forma, tamaño y posición |
-| **Color del marco** | Colores de la paleta, dos degradados, **Sin marco** o un color **Personalizado** |
-| **Controles** | Cuenta regresiva de 3 s · pausar / reanudar · detener · descartar. La barra no aparece en el video |
-| **Calidad** | Presets **YouTube**, **Máxima** y **Liviana**. Por defecto MP4 H.264 a 60 fps y resolución nativa |
-| **Biblioteca** | Lista, reproductor, *Mostrar en carpeta*, *Abrir carpeta* y *Eliminar* (manda el archivo a la Papelera) |
+| 🖥️ **Pantalla o ventana** | Graba la pantalla completa o una sola ventana |
+| 🎥 **Cámara flotante** | Siempre visible encima de todo, en forma de **burbuja**, **cuadrado** o **rectángulo 16:9** |
+| 🎨 **Marco a tu gusto** | Degradados, colores sólidos, sin marco o cualquier color que elijas |
+| 🎙️ **Micrófono** | Con cancelación de eco y reducción de ruido |
+| ⏯️ **Controles** | Cuenta regresiva, pausar / reanudar, detener y descartar. La barra de controles **no aparece en el video** |
+| 📺 **Calidad YouTube** | MP4 H.264 a 60 fps y a la resolución nativa de tu pantalla |
+| 📁 **Biblioteca** | Reproduce, ubica o elimina tus grabaciones desde la app |
+| 🔒 **100 % local** | Sin cuenta, sin servidores, sin subir nada a ningún lado |
 
 ---
 
 ## Instalación
 
-1. Ejecuta **`dist\CHELOOM Setup 0.2.0.exe`**.
-2. Se instala sola, sin pedir permisos de administrador, en `%LOCALAPPDATA%\Programs\cheloom`.
-3. Quedan creados dos accesos directos: uno en el **Escritorio** y otro en el **menú Inicio**.
+> **Requisitos:** Windows 10 u 11 de 64 bits. Cámara y micrófono opcionales.
 
-> **Aviso de Windows SmartScreen.** El instalador no está firmado con un certificado de código, así
-> que Windows puede mostrar *"Windows protegió tu PC"*. Pulsa **Más información → Ejecutar de todas formas**.
-> Es esperable en una app propia sin firmar.
+1. Ve a **[Releases](https://github.com/rachelduarte/cheloom/releases/latest)** y descarga `CHELOOM Setup x.y.z.exe`.
+2. Ábrelo. Se instala solo en unos segundos, **sin pedir permisos de administrador**.
+3. CHELOOM queda en el **Escritorio** y en el **menú Inicio**, y se abre al terminar.
 
-**Desinstalar:** Configuración → Aplicaciones → Aplicaciones instaladas → CHELOOM → Desinstalar.
-Tus grabaciones **no** se borran al desinstalar.
+### "Windows protegió tu PC"
 
----
+El instalador todavía no tiene firma digital (cuesta dinero y es un proyecto personal), así que Windows
+SmartScreen puede mostrar ese aviso la primera vez. Para continuar, pulsa **Más información → Ejecutar de todas formas**.
 
-## Cómo abrirla
+Si prefieres no confiar en un `.exe` descargado, puedes [compilarlo tú desde el código](#para-desarrolladores).
 
-| Forma | Acción |
-|---|---|
-| ⌨️ **Atajo de teclado** | **`Ctrl` + `Alt` + `C`** desde cualquier app |
-| 🖥️ Escritorio | Doble clic en el ícono **CHELOOM** |
-| 🔎 Menú Inicio | Escribe *CHELOOM* |
+### Actualizar
 
-Si CHELOOM ya está abierta, cualquiera de estas formas trae el panel al frente en lugar de abrir otra copia.
+Descarga e instala la versión nueva encima de la anterior. Tus grabaciones y ajustes se conservan.
 
-> El atajo está guardado en el acceso directo del **menú Inicio**. Si lo borras o lo mueves, el atajo deja
-> de funcionar. Puedes cambiarlo en *clic derecho → Propiedades → Tecla de método abreviado*.
+### Desinstalar
+
+**Configuración → Aplicaciones → Aplicaciones instaladas → CHELOOM → Desinstalar.**
+Tus grabaciones **no** se borran.
 
 ---
 
-## Cómo grabar
+## Primeros pasos
 
-1. En la pestaña **Grabar**, elige qué grabar: **Pantallas** o **Ventanas**.
-2. Elige la **cámara**, su **forma** y el **micrófono**.
-3. Elige la **calidad**. Debajo del selector verás el resultado esperado, por ejemplo
-   `MP4 · H.264 · 1440p · 60 fps · 24 Mbps`.
-4. Pulsa **Empezar a grabar**. Corre una cuenta regresiva de 3 s; **Esc** la cancela.
-5. Usa la barra flotante para **pausar**, **detener** o **descartar**.
+1. **Abre CHELOOM** con **`Ctrl` + `Alt` + `C`**, o desde el Escritorio o el menú Inicio.
+2. La primera vez, Windows puede pedir permiso para usar la cámara y el micrófono: acéptalo.
+3. En la pestaña **Grabar**:
+   - Elige **qué grabar**: una de tus **Pantallas** o una **Ventana**.
+   - Elige tu **cámara**, su **forma** y el **color del marco**.
+   - Elige tu **micrófono** y la **calidad**.
+4. Pulsa **Empezar a grabar**. Corre una cuenta regresiva de 3 segundos; **Esc** la cancela.
+5. Graba. Con la barra flotante puedes **pausar**, **detener** o **descartar**.
 6. Al detener, el video se abre solo en la pestaña **Biblioteca**.
 
-### Color del marco
+> 💡 **Graba la pantalla completa** si quieres que tu cámara salga en el video. Si grabas una sola ventana,
+> la cámara flotante queda fuera (la app te lo avisa).
 
-En **Grabar → Color del marco**, pulsa una muestra. El cambio se ve al instante en la cámara flotante y
-queda guardado para la próxima vez.
+---
+
+## La cámara flotante
+
+La cámara aparece en una esquina de tu pantalla, encima de cualquier app, y **sale en el video tal como la ves**.
+
+| Quieres… | Haz esto |
+|---|---|
+| **Moverla** | Arrástrala con el mouse |
+| **Cambiar su tamaño** | Pasa el cursor y arrastra el círculo magenta de la esquina inferior derecha |
+| **Cambiar su forma** | Pasa el cursor y elige burbuja, cuadrado o rectángulo. También desde el panel. Funciona mientras grabas |
+| **Cambiar el color del marco** | Panel → *Color del marco* |
+| **Verte sin efecto espejo** | Panel → desactiva *Ver en espejo* |
+| **Ocultarla** | Panel → Cámara → *Sin cámara* |
+
+CHELOOM recuerda la forma, el tamaño, la posición y el color para la próxima vez.
+
+### Colores del marco
 
 | Opción | Color |
 |---|---|
-| **Degradado** *(por defecto)* | Horizon → Magenta |
-| **Atardecer** | Cloud → Magenta → Blackout |
-| **Horizon** · **Magenta** · **Cloud** · **Lead** · **Blackout** | Colores sólidos de la paleta |
-| **Sin marco** | La cámara queda sin borde |
-| **Personalizado** (`+`) | Abre el selector de color de Windows; elige cualquier color |
-
-El marco forma parte del video, porque se graba tal como se ve en pantalla.
-
-**Cambiar la forma de la cámara mientras grabas:** pasa el cursor sobre la cámara y elige entre burbuja,
-cuadrado o rectángulo. El cambio se ve en el video en ese mismo momento.
+| **Degradado** *(por defecto)* | Turquesa → magenta |
+| **Atardecer** | Celeste → magenta → negro |
+| **Horizon · Magenta · Cloud · Lead · Blackout** | Colores sólidos |
+| **Sin marco** | La cámara sin borde |
+| **Personalizado** (`+`) | Abre el selector de color de Windows: cualquier color |
 
 ---
 
-## Calidad de video y YouTube
+## Calidad de video
 
-### Presets
+| Preset | Formato | FPS | Bitrate | Úsalo para |
+|---|---|---|---|---|
+| **YouTube** *(por defecto)* | MP4 · H.264 + AAC | 60 | 24 Mbps | Publicar en YouTube |
+| **Máxima** | MP4 · H.264 + AAC | 60 | 40 Mbps | Editar después o archivar |
+| **Liviana** | WebM · VP9 + Opus | 30 | 8 Mbps | Compartir rápido, archivos pequeños |
 
-| Preset | Formato | FPS | Bitrate de video | Audio | Para qué |
-|---|---|---|---|---|---|
-| **YouTube** *(por defecto)* | MP4 · H.264 + AAC | 60 | 24 Mbps | 192 kbps | Publicar en YouTube |
-| **Máxima** | MP4 · H.264 + AAC | 60 | 40 Mbps | 256 kbps | Editar después o archivar |
-| **Liviana** | WebM · VP9 + Opus | 30 | 8 Mbps | 128 kbps | Compartir rápido, archivos chicos |
+- Todo se graba a la **resolución nativa** de tu pantalla, sin reescalar. Debajo del selector de calidad
+  ves exactamente lo que vas a obtener, por ejemplo `MP4 · H.264 · 1440p · 60 fps · 24 Mbps`.
+- **Peso aproximado:** hasta ~180 MB por minuto con *YouTube* y ~300 MB con *Máxima*. Con poco movimiento
+  en pantalla, los archivos salen bastante más livianos.
+- Si tu equipo no puede grabar MP4, CHELOOM pasa automáticamente a WebM y te lo indica antes de grabar.
 
-Todos graban a la **resolución nativa** de la pantalla elegida, sin reescalar.
+### Consejos para YouTube
 
-### Por qué estos valores
+- **Pantallas 1440p o 4K:** sube el video tal cual. YouTube procesa esas resoluciones con códecs de mayor
+  calidad, y eso mejora la imagen incluso para quien mira en 1080p.
+- **Texto pequeño:** sube el zoom de la app que vas a mostrar (125–150 %). En el celular se lee mucho mejor.
+- **Audio:** un micrófono cerca de la boca vale más que cualquier ajuste de bitrate.
+- **Paciencia:** recién subido, YouTube muestra primero las resoluciones bajas; la alta aparece minutos después.
 
-- **Resolución:** en esta máquina la pantalla es de **2560×1440**, así que los videos salen en **1440p**.
-  Subir en 1440p tiene una ventaja extra: YouTube procesa esos videos con códecs de mayor calidad (VP9/AV1),
-  y eso mejora la imagen **incluso para quien los ve en 1080p**.
-- **Bitrate:** YouTube recomienda unos **24 Mbps para 1440p a 60 fps**. Como YouTube vuelve a comprimir
-  todo lo que se sube, conviene darle un archivo con margen de calidad.
-- **60 fps:** el movimiento del mouse y los desplazamientos se ven fluidos, algo que en tutoriales se nota.
-- **MP4 H.264 + AAC:** es el formato que YouTube y cualquier editor (CapCut, Premiere, DaVinci) aceptan
-  sin problemas. Si el equipo tiene codificador de hardware, Chromium lo usa y la grabación pesa menos en la CPU.
+---
 
-**Peso aproximado del archivo:** el preset YouTube genera hasta ~180 MB por minuto, y Máxima hasta ~300 MB.
-Con contenido estático (poco movimiento en pantalla) los archivos suelen salir bastante más livianos.
+## Tus grabaciones
 
-### Recomendaciones para que se vea mejor en YouTube
+Se guardan en:
 
-- Graba la **pantalla completa**, no una ventana suelta, para que la cámara salga y se mantenga la resolución.
-- Si tienes texto pequeño, sube el zoom de la app que vas a mostrar (125–150 %); en el celular se lee mejor.
-- Para el audio, un micrófono externo cerca de la boca vale más que cualquier ajuste de bitrate.
-- Al subir, YouTube puede tardar un rato en mostrar 1440p: primero procesa las resoluciones bajas.
+```
+Videos\CHELOOM\CHELOOM AAAA-MM-DD HH-mm-ss.mp4
+```
 
-### Evidencia técnica
+Desde la pestaña **Biblioteca** puedes reproducirlas, abrir la carpeta, ubicar un archivo en el Explorador o
+**eliminarlo**. Eliminar lo manda a la **Papelera de reciclaje**, así que puedes recuperarlo.
 
-Lo que se comprobó en esta máquina (Electron 44.9.0 / Chromium 152, 19-10-2026) con `MediaRecorder.isTypeSupported`:
+Mientras grabas, el video se escribe en disco cada segundo. Si la app se cierra de golpe, lo grabado hasta
+ese momento se conserva.
 
-| Formato | Soportado |
+---
+
+## Atajos
+
+| Atajo | Acción |
 |---|---|
-| `video/mp4;codecs=avc1.640033,mp4a.40.2` (H.264 High + AAC) | ✅ |
-| `video/mp4;codecs=av01,opus` (AV1) | ✅ |
-| `video/webm;codecs=vp9,opus` | ✅ |
-| `video/mp4;codecs=hvc1,opus` (H.265) | ❌ |
+| **`Ctrl` + `Alt` + `C`** | Abrir CHELOOM, o traerla al frente si ya está abierta |
+| **`Esc`** (durante la cuenta regresiva) | Cancelar la grabación antes de empezar |
 
-Si un equipo no soporta MP4, CHELOOM cae automáticamente a WebM VP9, y el panel lo indica antes de grabar.
-
----
-
-## Dónde quedan los videos
-
-```
-%USERPROFILE%\Videos\CHELOOM\CHELOOM AAAA-MM-DD HH-mm-ss.mp4
-```
-
-Mientras grabas, el archivo se escribe a disco cada segundo, con extensión `.part`. Si la app se cierra a
-mitad de una grabación, lo grabado hasta ese momento se conserva.
+> El atajo `Ctrl` + `Alt` + `C` vive en el acceso directo del menú Inicio. Para cambiarlo:
+> clic derecho en el acceso → **Propiedades** → **Tecla de método abreviado**.
 
 ---
 
-## Limitaciones conocidas
+## Solución de problemas
 
-- Si grabas **una sola ventana**, la cámara flotante no sale en el video (el panel lo avisa).
-- Graba el audio del **micrófono**, no el del sistema.
-- El MP4 que produce el navegador es **fragmentado y de cuadros variables**. YouTube lo acepta sin
-  problema; algún editor antiguo podría pedir convertirlo antes.
-- Los atajos solo **abren** la app; todavía no hay atajos globales para empezar o detener la grabación.
-- El instalador no está firmado (ver el aviso de SmartScreen en [Instalación](#instalación)).
+<details>
+<summary><strong>La cámara dice "La cámara está en uso por otra app"</strong></summary>
+
+Otra app (Zoom, Teams, Meet en el navegador, OBS…) tiene la cámara tomada. Ciérrala: CHELOOM vuelve a
+intentar sola cada pocos segundos. También puedes hacer clic sobre el aviso para reintentar en el momento.
+</details>
+
+<details>
+<summary><strong>La cámara dice "Sin permiso de cámara"</strong></summary>
+
+Abre **Configuración → Privacidad y seguridad → Cámara** y activa **Acceso a la cámara** y
+**Permitir que las aplicaciones de escritorio accedan a la cámara**. Para el micrófono, lo mismo en
+**Privacidad y seguridad → Micrófono**.
+</details>
+
+<details>
+<summary><strong>Elegí "OBS Virtual Camera" y no se ve nada</strong></summary>
+
+Esa cámara solo entrega imagen mientras OBS tiene activada la **Cámara virtual**. Actívala en OBS o elige
+tu cámara física.
+</details>
+
+<details>
+<summary><strong>Mi cámara no sale en el video</strong></summary>
+
+Estás grabando **una sola ventana**. La cámara flota encima de todo, pero no forma parte de esa ventana.
+Graba la **pantalla completa**.
+</details>
+
+<details>
+<summary><strong>El atajo Ctrl + Alt + C no hace nada</strong></summary>
+
+Revisa que el acceso directo **CHELOOM** siga en el menú Inicio (si lo borraste, reinstala). Algunas apps
+usan esa misma combinación; si choca con otra, cámbiala en las propiedades del acceso directo.
+</details>
+
+<details>
+<summary><strong>Mi editor de video no abre bien el archivo</strong></summary>
+
+El MP4 que generan los navegadores es *fragmentado* y de cuadros por segundo variables. YouTube lo acepta
+sin problema; algunos editores antiguos prefieren convertirlo antes, por ejemplo con
+[HandBrake](https://handbrake.fr/) (gratuito).
+</details>
+
+<details>
+<summary><strong>¿Graba el sonido de la computadora?</strong></summary>
+
+Todavía no: solo el micrófono. Está en la lista de mejoras.
+</details>
+
+¿Otro problema? Abre un [issue](https://github.com/rachelduarte/cheloom/issues) y cuéntanos qué pasó,
+tu versión de Windows y, si puedes, una captura.
 
 ---
 
-## Desarrollo
+## Privacidad
+
+CHELOOM **no tiene servidores ni telemetría**. No envía tus videos, tu imagen ni tu voz a ningún lado.
+Todo queda en tu carpeta `Videos\CHELOOM` y tus ajustes en `%APPDATA%\CHELOOM`.
+
+---
+
+## Para desarrolladores
+
+### Requisitos
+
+- [Node.js](https://nodejs.org/) 22 o superior
+- Windows 10/11 (el instalador y la exclusión de la barra de controles del video son específicos de Windows)
+
+### Correr desde el código
 
 ```bash
+git clone https://github.com/rachelduarte/cheloom.git
+cd cheloom
 npm install
 npm start
 ```
 
+### Comandos
+
 | Comando | Qué hace |
 |---|---|
 | `npm start` | Abre CHELOOM en modo desarrollo |
-| `npm test` | Pruebas de la lógica pura: formas, colores del marco, formato y presets de calidad |
-| `npm run icon` | Regenera `build/icon.png` y `src/assets/icon.png` con la paleta |
-| `npm run dist` | Genera el instalador en `dist\` |
+| `npm test` | Pruebas de la lógica pura (formas, colores del marco, calidad, formato, errores de cámara) |
+| `npm run icon` | Regenera el ícono (`build/icon.png` y `src/assets/icon.png`) |
+| `npm run dist` | Genera el instalador en `dist/` |
 
-### Estructura
+### Cómo está hecho
 
-| Pieza | Archivo |
+- **Electron + JavaScript sin bundler.** Proceso `main`, un `preload` con `contextBridge` y páginas HTML/CSS/JS
+  con módulos ES. Las páginas no tienen acceso a Node (`contextIsolation` y `sandbox` activados).
+- **La cámara se compone grabando la pantalla**, donde la ventana flotante ya está visible: lo que ves es lo
+  que queda en el video. La barra de controles y la cuenta regresiva usan *content protection*, así que Windows
+  las excluye de la captura.
+- **`MediaRecorder` escribe por fragmentos** de 1 segundo hacia `main`, que los guarda en un `.part` y lo
+  renombra al terminar. La memoria se mantiene constante aunque grabes una hora.
+
+```
+src/
+├── main/            proceso principal
+│   ├── index.js         arranque, permisos, selección de fuente
+│   ├── windows.js       panel, cámara flotante, barra, cuenta regresiva
+│   ├── ipc.js           canales entre ventanas
+│   ├── recorder-file.js escritura a disco por fragmentos
+│   ├── library.js       biblioteca y Papelera
+│   └── settings.js      preferencias
+├── preload/index.cjs  API mínima expuesta a las páginas
+├── renderer/          interfaz (panel, camera, toolbar, countdown) + theme.css
+└── shared/            lógica pura y testeada (shapes, frames, quality, format, camera-errors)
+build/                 ícono e include NSIS (atajo Ctrl+Alt+C)
+test/                  pruebas con node:test
+openspec/              especificaciones de cada cambio (SDD)
+```
+
+### Paleta
+
+| Token | Hex |
 |---|---|
-| Ventanas (panel, cámara, barra, cuenta regresiva) | `src/main/windows.js` |
-| Canales IPC y flujo de grabación | `src/main/ipc.js` |
-| Escritura a disco por fragmentos (`.part` → `.mp4`/`.webm`) | `src/main/recorder-file.js` |
-| Biblioteca y Papelera | `src/main/library.js` |
-| Preferencias de la usuaria | `src/main/settings.js` |
-| Presets de calidad y elección de códec | `src/shared/quality.js` |
-| Formas de la cámara | `src/shared/shapes.js` |
-| Colores del marco | `src/shared/frames.js` |
-| Panel: fuentes, dispositivos, `MediaRecorder`, biblioteca | `src/renderer/panel/` |
-| Cámara flotante | `src/renderer/camera/` |
-| Paleta de marca | `src/renderer/theme.css` |
-| Atajo Ctrl+Alt+C en el instalador | `build/installer.nsh` |
-
-### Cómo funciona la composición
-
-La cámara sale en el video porque CHELOOM graba la pantalla, donde la ventana flotante ya está visible,
-igual que hace Loom. La barra de controles y la cuenta regresiva usan *content protection*, así que Windows
-las excluye de la captura.
-
-### Especificaciones
-
-Los cambios se planifican con SDD en [`openspec/changes/`](openspec/changes):
-
-- [`cheloom-mvp`](openspec/changes/cheloom-mvp): grabación, cámara flotante y biblioteca.
-- [`cheloom-calidad-instalador`](openspec/changes/cheloom-calidad-instalador): calidad para YouTube e instalador.
-- [`cheloom-color-marco`](openspec/changes/cheloom-color-marco): color del marco de la cámara.
+| Horizon | `#20BEC6` |
+| Magenta | `#ED0180` |
+| Dusk | `#0C152A` |
+| Cloud | `#C9DEE8` |
+| Lead | `#9EACB2` |
+| Blackout | `#0A0F0F` |
 
 ---
 
-## Paleta de marca
+## Contribuir
 
-| Token | Hex | Uso |
-|---|---|---|
-| Horizon | `#20BEC6` | Acentos, botón detener, foco |
-| Magenta | `#ED0180` | Grabando, tirador de tamaño |
-| Dusk | `#0C152A` | Superficies |
-| Cloud | `#C9DEE8` | Texto |
-| Lead | `#9EACB2` | Texto secundario |
-| Blackout | `#0A0F0F` | Fondo |
-| Degradado | Cloud → Magenta → negro | Botón *Empezar a grabar* |
+¡Las contribuciones son bienvenidas!
+
+1. Haz un fork y crea una rama: `feat/mi-mejora` o `fix/mi-arreglo`.
+2. Si tocas lógica de `src/shared/`, agrega o ajusta sus pruebas y corre `npm test`.
+3. Usa mensajes de commit con el formato `[TAG] cheloom: descripción`, donde el tag es `[ADD]`, `[IMP]` o `[FIX]`.
+4. Abre un Pull Request contando qué cambia y cómo lo probaste.
+
+Ideas pendientes: audio del sistema, atajos globales para grabar y detener, recorte de video,
+ícono en la bandeja del sistema, soporte para macOS.
+
+---
+
+## Licencia
+
+[MIT](LICENSE) © 2026 Rachel Duarte
+
+CHELOOM es un proyecto independiente, sin relación con Loom ni con Atlassian.
