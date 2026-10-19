@@ -10,10 +10,10 @@ export function formatDuration(ms) {
   return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
 }
 
-export function recordingFileName(date = new Date()) {
+export function recordingFileName(date = new Date(), ext = 'webm') {
   const d = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   const t = `${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`;
-  return `CHELOOM ${d} ${t}.webm`;
+  return `CHELOOM ${d} ${t}.${ext}`;
 }
 
 export function formatBytes(n) {
