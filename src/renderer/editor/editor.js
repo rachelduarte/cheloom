@@ -76,7 +76,7 @@ async function load(file) {
   exportedState = history.present;
   selectedId = history.present.clips[0].id;
   ui.fileName.textContent = media.name;
-  document.title = `CHELOOM · Editor · ${media.name}`;
+  document.title = `cheloom · Editor · ${media.name}`;
   ui.zoom.value = '1';
   ui.video.src = media.url;
   await new Promise((resolve) => {

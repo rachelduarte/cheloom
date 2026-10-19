@@ -1,4 +1,4 @@
-// Genera el ícono de CHELOOM con la paleta de marca.
+// Genera el ícono de cheloom con la paleta de marca.
 // Uso: npx electron scripts/make-icon.cjs  → build/icon.png y src/assets/icon.png (1024 px)
 const { app, BrowserWindow } = require('electron');
 const fs = require('node:fs');

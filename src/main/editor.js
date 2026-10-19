@@ -44,7 +44,7 @@ async function cleanup() {
 }
 
 export async function prepare(source, sendStrip) {
-  if (!insideLibrary(source)) throw new Error('El archivo no está en la biblioteca de CHELOOM.');
+  if (!insideLibrary(source)) throw new Error('El archivo no está en la biblioteca de cheloom.');
   await cleanup();
   const dir = await fs.promises.mkdtemp(path.join(app.getPath('temp'), 'cheloom-editor-'));
   const proxy = path.join(dir, `proxy${path.extname(source).toLowerCase()}`);

@@ -24,7 +24,7 @@ export async function list() {
 }
 
 export async function trash(file) {
-  if (!insideLibrary(file)) throw new Error('El archivo no está en la biblioteca de CHELOOM.');
+  if (!insideLibrary(file)) throw new Error('El archivo no está en la biblioteca de cheloom.');
   await shell.trashItem(file);
 }
 

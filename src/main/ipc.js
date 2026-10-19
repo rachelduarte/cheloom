@@ -47,7 +47,7 @@ export function registerIpc() {
     });
     const displays = screen.getAllDisplays();
     return sources
-      .filter((s) => !s.name.startsWith('CHELOOM'))
+      .filter((s) => !/^cheloom\b/i.test(s.name)) // las ventanas propias no se graban
       .map((s) => {
         // Tamaño físico de la pantalla, para capturar sin reescalar.
         const d = displays.find((x) => String(x.id) === s.display_id);

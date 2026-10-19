@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { recordingFileName } from '../shared/format.js';
 
-export const recordingsDir = () => path.join(app.getPath('videos'), 'CHELOOM');
+export const recordingsDir = () => path.join(app.getPath('videos'), 'cheloom');
 
 let current = null; // { stream, partPath, finalPath }
 

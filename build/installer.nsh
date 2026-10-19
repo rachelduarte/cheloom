@@ -1,4 +1,4 @@
-; Atajo de teclado Ctrl+Alt+C para abrir CHELOOM.
+; Atajo de teclado Ctrl+Alt+C para abrir cheloom.
 ; electron-builder ya creó el acceso del menú Inicio; aquí se recrea con el atajo, porque
 ; electron-builder no expone ese parámetro. Windows solo respeta atajos en accesos del
 ; Escritorio o del menú Inicio.

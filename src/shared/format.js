@@ -20,7 +20,7 @@ export function formatTimecode(seconds) {
 export function recordingFileName(date = new Date(), ext = 'webm') {
   const d = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   const t = `${pad(date.getHours())}-${pad(date.getMinutes())}-${pad(date.getSeconds())}`;
-  return `CHELOOM ${d} ${t}.${ext}`;
+  return `cheloom ${d} ${t}.${ext}`;
 }
 
 export function formatBytes(n) {

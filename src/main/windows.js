@@ -1,4 +1,4 @@
-// Ventanas de CHELOOM: panel, cámara flotante, barra de grabación, cuenta regresiva y editor.
+// Ventanas de cheloom: panel, cámara flotante, barra de grabación, cuenta regresiva y editor.
 import { BrowserWindow, dialog, screen } from 'electron';
 import path from 'node:path';
 import { clampSize, sizeFor } from '../shared/shapes.js';
@@ -38,7 +38,7 @@ export function createPanel() {
     height: 720,
     minWidth: 880,
     minHeight: 600,
-    title: 'CHELOOM',
+    title: 'cheloom',
     icon: path.join(root, 'assets', 'icon.png'),
     backgroundColor: '#0A0F0F',
     titleBarStyle: 'hidden',
@@ -81,7 +81,7 @@ export function applyCamera(config) {
   if (!win.camera) {
     const pos = settings.cameraPosition;
     const bounds = pos ? { ...pos, ...size } : defaultCameraBounds(size);
-    win.camera = new BrowserWindow({ ...floating, ...bounds, title: 'CHELOOM · Cámara', webPreferences: webPreferences() });
+    win.camera = new BrowserWindow({ ...floating, ...bounds, title: 'cheloom · Cámara', webPreferences: webPreferences() });
     keepOnTop(win.camera);
     win.camera.loadFile(page('camera'));
     win.camera.once('ready-to-show', () => win.camera.showInactive());
@@ -125,7 +125,7 @@ export function openToolbar() {
     height,
     x: Math.round(workArea.x + (workArea.width - width) / 2),
     y: workArea.y + workArea.height - height - 24,
-    title: 'CHELOOM · Grabando',
+    title: 'cheloom · Grabando',
     webPreferences: webPreferences(),
   });
   win.toolbar.setContentProtection(true); // Windows la excluye del video
@@ -150,7 +150,7 @@ export function openCountdown() {
     height: size,
     x: Math.round(workArea.x + (workArea.width - size) / 2),
     y: Math.round(workArea.y + (workArea.height - size) / 2),
-    title: 'CHELOOM · Preparando',
+    title: 'cheloom · Preparando',
     webPreferences: webPreferences(),
   });
   win.countdown.setContentProtection(true);
@@ -188,7 +188,7 @@ export function openEditor(file, { onClosed }) {
     height: 820,
     minWidth: 960,
     minHeight: 640,
-    title: 'CHELOOM · Editor',
+    title: 'cheloom · Editor',
     icon: path.join(root, 'assets', 'icon.png'),
     backgroundColor: '#0A0F0F',
     titleBarStyle: 'hidden',

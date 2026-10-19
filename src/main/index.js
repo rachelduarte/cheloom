@@ -1,4 +1,4 @@
-// Punto de entrada del proceso main de CHELOOM.
+// Punto de entrada del proceso main de cheloom.
 import { app, desktopCapturer, session } from 'electron';
 import { registerIpc, state } from './ipc.js';
 import * as recorder from './recorder-file.js';

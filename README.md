@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="build/icon.png" width="128" alt="Ícono de CHELOOM" />
+  <img src="build/icon.png" width="128" alt="Ícono de cheloom" />
 </p>
 
-<h1 align="center">CHELOOM</h1>
+<h1 align="center">cheloom</h1>
 
 <p align="center">
   <strong>Graba tu pantalla con tu cámara flotando encima, al estilo Loom, sin cuentas y sin nube.</strong><br />
@@ -38,7 +38,7 @@
 
 ## ¿Qué es?
 
-CHELOOM es una app de escritorio para grabar videos explicativos, tutoriales y demos: tu pantalla y tu
+cheloom es una app de escritorio para grabar videos explicativos, tutoriales y demos: tu pantalla y tu
 cámara en un mismo video, con tu voz. Es la idea de Loom, pero **local**, **gratuita** y **de código abierto**.
 
 | | |
@@ -59,9 +59,9 @@ cámara en un mismo video, con tu voz. Es la idea de Loom, pero **local**, **gra
 
 > **Requisitos:** Windows 10 u 11 de 64 bits. Cámara y micrófono opcionales.
 
-1. Ve a **[Releases](https://github.com/rachelduarte/cheloom/releases/latest)** y descarga `CHELOOM Setup x.y.z.exe`.
+1. Ve a **[Releases](https://github.com/rachelduarte/cheloom/releases/latest)** y descarga `cheloom Setup x.y.z.exe`.
 2. Ábrelo. Se instala solo en unos segundos, **sin pedir permisos de administrador**.
-3. CHELOOM queda en el **Escritorio** y en el **menú Inicio**, y se abre al terminar.
+3. cheloom queda en el **Escritorio** y en el **menú Inicio**, y se abre al terminar.
 
 ### "Windows protegió tu PC"
 
@@ -76,14 +76,14 @@ Descarga e instala la versión nueva encima de la anterior. Tus grabaciones y aj
 
 ### Desinstalar
 
-**Configuración → Aplicaciones → Aplicaciones instaladas → CHELOOM → Desinstalar.**
+**Configuración → Aplicaciones → Aplicaciones instaladas → cheloom → Desinstalar.**
 Tus grabaciones **no** se borran.
 
 ---
 
 ## Primeros pasos
 
-1. **Abre CHELOOM** con **`Ctrl` + `Alt` + `C`**, o desde el Escritorio o el menú Inicio.
+1. **Abre cheloom** con **`Ctrl` + `Alt` + `C`**, o desde el Escritorio o el menú Inicio.
 2. La primera vez, Windows puede pedir permiso para usar la cámara y el micrófono: acéptalo.
 3. En la pestaña **Grabar**:
    - Elige **qué grabar**: una de tus **Pantallas** o una **Ventana**.
@@ -111,7 +111,7 @@ La cámara aparece en una esquina de tu pantalla, encima de cualquier app, y **s
 | **Verte sin efecto espejo** | Panel → desactiva *Ver en espejo* |
 | **Ocultarla** | Panel → Cámara → *Sin cámara* |
 
-CHELOOM recuerda la forma, el tamaño, la posición y el color para la próxima vez.
+cheloom recuerda la forma, el tamaño, la posición y el color para la próxima vez.
 
 ### Colores del marco
 
@@ -137,7 +137,7 @@ CHELOOM recuerda la forma, el tamaño, la posición y el color para la próxima 
   ves exactamente lo que vas a obtener, por ejemplo `MP4 · H.264 · 1440p · 60 fps · 24 Mbps`.
 - **Peso aproximado:** hasta ~180 MB por minuto con *YouTube* y ~300 MB con *Máxima*. Con poco movimiento
   en pantalla, los archivos salen bastante más livianos.
-- Si tu equipo no puede grabar MP4, CHELOOM pasa automáticamente a WebM y te lo indica antes de grabar.
+- Si tu equipo no puede grabar MP4, cheloom pasa automáticamente a WebM y te lo indica antes de grabar.
 
 ### Consejos para YouTube
 
@@ -154,7 +154,7 @@ CHELOOM recuerda la forma, el tamaño, la posición y el color para la próxima 
 Se guardan en:
 
 ```
-Videos\CHELOOM\CHELOOM AAAA-MM-DD HH-mm-ss.mp4
+Videos\cheloom\cheloom AAAA-MM-DD HH-mm-ss.mp4
 ```
 
 Desde la pestaña **Biblioteca** puedes reproducirlas, abrir la carpeta, ubicar un archivo en el Explorador o
@@ -167,7 +167,7 @@ ese momento se conserva.
 
 ## Editar tus videos
 
-CHELOOM trae un editor sencillo, al estilo del de Canva: **divides** el video, **borras** lo que no quieres y
+cheloom trae un editor sencillo, al estilo del de Canva: **divides** el video, **borras** lo que no quieres y
 lo demás queda **pegado** en un solo video.
 
 **Ábrelo así:** pestaña **Biblioteca** → elige una grabación → **Editar**.
@@ -201,7 +201,7 @@ lo demás queda **pegado** en un solo video.
 - Los cortes son exactos al cuadro. Como referencia, en una PC de escritorio un video de 1440p se exporta más
   rápido que su duración real.
 
-> Si cierras el editor con cambios sin exportar, CHELOOM te pregunta antes de descartarlos.
+> Si cierras el editor con cambios sin exportar, cheloom te pregunta antes de descartarlos.
 
 ---
 
@@ -209,7 +209,7 @@ lo demás queda **pegado** en un solo video.
 
 | Atajo | Acción |
 |---|---|
-| **`Ctrl` + `Alt` + `C`** | Abrir CHELOOM, o traerla al frente si ya está abierta |
+| **`Ctrl` + `Alt` + `C`** | Abrir cheloom, o traerla al frente si ya está abierta |
 | **`Esc`** (durante la cuenta regresiva) | Cancelar la grabación antes de empezar |
 
 **En el editor:**
@@ -233,7 +233,7 @@ lo demás queda **pegado** en un solo video.
 <details>
 <summary><strong>La cámara dice "La cámara está en uso por otra app"</strong></summary>
 
-Otra app (Zoom, Teams, Meet en el navegador, OBS…) tiene la cámara tomada. Ciérrala: CHELOOM vuelve a
+Otra app (Zoom, Teams, Meet en el navegador, OBS…) tiene la cámara tomada. Ciérrala: cheloom vuelve a
 intentar sola cada pocos segundos. También puedes hacer clic sobre el aviso para reintentar en el momento.
 </details>
 
@@ -262,7 +262,7 @@ Graba la **pantalla completa**.
 <details>
 <summary><strong>El atajo Ctrl + Alt + C no hace nada</strong></summary>
 
-Revisa que el acceso directo **CHELOOM** siga en el menú Inicio (si lo borraste, reinstala). Algunas apps
+Revisa que el acceso directo **cheloom** siga en el menú Inicio (si lo borraste, reinstala). Algunas apps
 usan esa misma combinación; si choca con otra, cámbiala en las propiedades del acceso directo.
 </details>
 
@@ -287,8 +287,8 @@ tu versión de Windows y, si puedes, una captura.
 
 ## Privacidad
 
-CHELOOM **no tiene servidores ni telemetría**. No envía tus videos, tu imagen ni tu voz a ningún lado.
-Todo queda en tu carpeta `Videos\CHELOOM` y tus ajustes en `%APPDATA%\CHELOOM`.
+cheloom **no tiene servidores ni telemetría**. No envía tus videos, tu imagen ni tu voz a ningún lado.
+Todo queda en tu carpeta `Videos\cheloom` y tus ajustes en `%APPDATA%\cheloom`.
 
 ---
 
@@ -313,7 +313,7 @@ npm start
 
 | Comando | Qué hace |
 |---|---|
-| `npm start` | Abre CHELOOM en modo desarrollo |
+| `npm start` | Abre cheloom en modo desarrollo |
 | `npm test` | Pruebas de la lógica pura (línea de tiempo, historial, FFmpeg, formas, colores, calidad, formato, errores de cámara) |
 | `npm run icon` | Regenera el ícono (`build/icon.png` y `src/assets/icon.png`) |
 | `npm run dist` | Genera el instalador en `dist/` |
@@ -377,12 +377,12 @@ guardar un proyecto del editor para seguir después,
 
 [MIT](LICENSE) © 2026 Rachel Duarte
 
-CHELOOM es un proyecto independiente, sin relación con Loom ni con Atlassian.
+cheloom es un proyecto independiente, sin relación con Loom ni con Atlassian.
 
 ### Software de terceros
 
 El editor usa **[FFmpeg](https://ffmpeg.org/)** 6.1.1 (compilación de [gyan.dev](https://www.gyan.dev/ffmpeg/builds/),
 distribuida mediante [`ffmpeg-static`](https://github.com/eugeneware/ffmpeg-static)) para preparar y exportar los videos.
 FFmpeg se incluye como **programa aparte** bajo la licencia **GPL-3.0-or-later**, no forma parte del código MIT de
-CHELOOM. Su licencia viaja junto al ejecutable (`resources\app.asar.unpacked\node_modules\ffmpeg-static\ffmpeg.exe.LICENSE`)
+cheloom. Su licencia viaja junto al ejecutable (`resources\app.asar.unpacked\node_modules\ffmpeg-static\ffmpeg.exe.LICENSE`)
 y su código fuente está disponible en [ffmpeg.org](https://ffmpeg.org/download.html).

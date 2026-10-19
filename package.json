@@ -1,7 +1,7 @@
 {
   "name": "cheloom",
-  "productName": "CHELOOM",
-  "version": "0.3.0",
+  "productName": "cheloom",
+  "version": "0.3.1",
   "description": "Grabadora de pantalla y cámara tipo Loom, local y con marca propia.",
   "author": "Rachel Duarte",
   "license": "MIT",
@@ -28,7 +28,7 @@
   },
   "build": {
     "appId": "pe.cheloom.app",
-    "productName": "CHELOOM",
+    "productName": "cheloom",
     "files": [
       "src/**/*",
       "package.json"
@@ -46,7 +46,7 @@
       "perMachine": false,
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
-      "shortcutName": "CHELOOM",
+      "shortcutName": "cheloom",
       "runAfterFinish": true,
       "include": "build/installer.nsh",
       "deleteAppDataOnUninstall": false

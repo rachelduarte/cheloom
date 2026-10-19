@@ -1,8 +1,8 @@
 // Traduce los errores de getUserMedia a mensajes claros y decide cómo recuperarse. Lógica pura.
 
 const MESSAGES = {
-  NotReadableError: 'La cámara está en uso por otra app. Ciérrala y CHELOOM la tomará sola.',
-  AbortError: 'La cámara está en uso por otra app. Ciérrala y CHELOOM la tomará sola.',
+  NotReadableError: 'La cámara está en uso por otra app. Ciérrala y cheloom la tomará sola.',
+  AbortError: 'La cámara está en uso por otra app. Ciérrala y cheloom la tomará sola.',
   NotAllowedError: 'Sin permiso de cámara. Revisa Configuración → Privacidad y seguridad → Cámara.',
   SecurityError: 'Sin permiso de cámara. Revisa Configuración → Privacidad y seguridad → Cámara.',
   NotFoundError: 'No se encontró la cámara. ¿Está conectada?',

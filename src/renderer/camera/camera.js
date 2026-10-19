@@ -18,7 +18,7 @@ let attempt = 0; // cada apertura nueva invalida las anteriores
 let retryTimer = 0;
 
 function showError(err) {
-  console.error(`[CHELOOM cámara] ${err.name}: ${err.message}`);
+  console.error(`[cheloom cámara] ${err.name}: ${err.message}`);
   error.textContent = cameraErrorMessage(err.name);
   error.hidden = false;
 }
