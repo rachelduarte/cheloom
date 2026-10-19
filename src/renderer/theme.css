@@ -1,0 +1,64 @@
+/* Paleta de marca CHELOOM */
+:root {
+  --horizon: #20bec6;
+  --magenta: #ed0180;
+  --dusk: #0c152a;
+  --cloud: #c9dee8;
+  --lead: #9eacb2;
+  --blackout: #0a0f0f;
+
+  --gradient: linear-gradient(90deg, #8fb8d6 0%, #d85aa8 35%, var(--magenta) 60%, #3a0a22 88%, #120208 100%);
+  --ring: linear-gradient(135deg, var(--horizon), var(--magenta));
+
+  --bg: var(--blackout);
+  --surface: var(--dusk);
+  --surface-2: #121d38;
+  --line: rgba(201, 222, 232, 0.12);
+  --text: var(--cloud);
+  --muted: var(--lead);
+  --accent: var(--horizon);
+  --hot: var(--magenta);
+
+  --radius: 14px;
+  --font: 'Segoe UI Variable Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Segoe UI Variable Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

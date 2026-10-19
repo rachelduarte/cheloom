@@ -1,0 +1,139 @@
+html,
+body {
+  background: transparent;
+  overflow: hidden;
+}
+
+.cam {
+  --r: 50%;
+  position: fixed;
+  inset: 0;
+  padding: 3px;
+  border-radius: var(--r);
+  background: var(--ring);
+  cursor: grab;
+}
+.cam:active {
+  cursor: grabbing;
+}
+.cam.shape-bubble {
+  --r: 50%;
+}
+.cam.shape-square {
+  --r: 18%;
+}
+.cam.shape-rect {
+  --r: 16px;
+}
+
+.lens {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--r) - 0px);
+  overflow: hidden;
+  background: var(--dusk);
+}
+.cam.shape-rect .lens {
+  border-radius: 13px;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mirror video {
+  transform: scaleX(-1);
+}
+
+.cam-error {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 13px;
+  color: var(--lead);
+}
+
+/* Controles: solo al pasar el cursor */
+.controls {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translate(-50%, 6px);
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(10, 15, 15, 0.78);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  cursor: default;
+}
+.cam:hover .controls {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.controls button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+.controls button:hover,
+.controls button.is-active {
+  background: rgba(201, 222, 232, 0.16);
+}
+.mini {
+  display: block;
+  height: 12px;
+  border: 2px solid var(--cloud);
+}
+.mini.bubble {
+  width: 12px;
+  border-radius: 50%;
+}
+.mini.square {
+  width: 12px;
+  border-radius: 3px;
+}
+.mini.rect {
+  width: 18px;
+  border-radius: 3px;
+}
+.controls button.is-active .mini {
+  border-color: var(--horizon);
+}
+
+.resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--magenta);
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.cam:hover .resize {
+  opacity: 1;
+}
+.resize svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}

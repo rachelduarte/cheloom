@@ -1,0 +1,88 @@
+html,
+body {
+  background: transparent;
+  overflow: hidden;
+}
+
+.bar {
+  position: fixed;
+  inset: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 0 6px;
+  border-radius: 999px;
+  background: var(--dusk);
+  border: 1px solid rgba(201, 222, 232, 0.14);
+}
+
+.grip {
+  -webkit-app-region: drag;
+  align-self: stretch;
+  width: 18px;
+  margin: 10px 0;
+  border-radius: 6px;
+  background-image: radial-gradient(var(--lead) 1px, transparent 1.4px);
+  background-size: 6px 6px;
+  background-position: center;
+  opacity: 0.6;
+  cursor: move;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--magenta);
+  box-shadow: 0 0 0 0 rgba(237, 1, 128, 0.6);
+  animation: pulse 1.6s infinite;
+}
+.dot.paused {
+  background: var(--lead);
+  animation: none;
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 8px rgba(237, 1, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(237, 1, 128, 0);
+  }
+}
+
+.time {
+  min-width: 64px;
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: auto;
+}
+
+.btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--cloud);
+}
+.btn:hover {
+  background: rgba(201, 222, 232, 0.12);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.btn.stop {
+  background: var(--horizon);
+}
+.btn.stop:hover {
+  filter: brightness(1.1);
+  background: var(--horizon);
+}
+.square {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--blackout);
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' file:; script-src 'self' file:; style-src 'self' 'unsafe-inline' file:; media-src 'self' blob: mediastream:"
+    />
+    <title>CHELOOM · Cámara</title>
+    <link rel="stylesheet" href="../theme.css" />
+    <link rel="stylesheet" href="camera.css" />
+  </head>
+  <body>
+    <div id="cam" class="cam shape-bubble">
+      <div class="lens">
+        <video id="video" autoplay muted playsinline></video>
+        <p id="cam-error" class="cam-error" hidden>Cámara no disponible</p>
+      </div>
+
+      <div class="controls" role="toolbar" aria-label="Forma de la cámara">
+        <button data-shape="bubble" title="Burbuja" aria-label="Burbuja"><span class="mini bubble"></span></button>
+        <button data-shape="square" title="Cuadrado" aria-label="Cuadrado"><span class="mini square"></span></button>
+        <button data-shape="rect" title="Rectángulo" aria-label="Rectángulo"><span class="mini rect"></span></button>
+      </div>
+
+      <div id="resize" class="resize" title="Arrastra para cambiar el tamaño" aria-hidden="true">
+        <svg viewBox="0 0 12 12"><path d="M11 3 3 11M11 7l-4 4" /></svg>
+      </div>
+    </div>
+    <script type="module" src="camera.js"></script>
+  </body>
+</html>
