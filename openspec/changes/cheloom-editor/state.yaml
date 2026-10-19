@@ -4,6 +4,6 @@ phases:
   spec: done
   design: done
   tasks: done
-  apply: in_progress
-  verify: pending
+  apply: done
+  verify: done (e2e MP4 y WebM, 2026-10-19)
   archive: pending
